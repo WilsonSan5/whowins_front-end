@@ -1,0 +1,24 @@
+@import './base.css';
+
+#app {
+  margin: 0 auto;
+  font-weight: normal;
+  overflow: hidden;
+}
+
+h1 {
+  font-family: var(--font-main);
+}
+
+
+
+/* Class for Logo */
+.whowins-logo {
+  font-family: var(--font-logo);
+  font-size: calc(2.5em + 2vw);
+  color: white;
+}
+
+
+/* Only for desktop */
+@media (hover: hover) {}

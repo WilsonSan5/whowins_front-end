@@ -1,0 +1,65 @@
+:root {
+  --color-main: #10223e;
+  --color-secondary: #F14343;
+  --color-background: #1e1e1e;
+
+  --color-text: white;
+  --color-text-faded: rgb(130, 130, 130);
+
+  --font-main: 'Komika_Axis';
+  --font-secondary: 'Fredoka', sans-serif;
+  --font-logo: 'Badaboom';
+
+  --section-gap: 160px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  font-weight: normal;
+}
+
+body {
+  min-height: 100svh;
+  color: var(--color-text);
+  background: var(--color-background);
+  background-color: var(--color-background);
+  transition:
+    color 0.5s,
+    background-color 0.5s;
+  line-height: 1.6;
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    'Fira Sans',
+    'Droid Sans',
+    'Helvetica Neue',
+    sans-serif;
+  font-size: 15px;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/*  Main Logo Font */
+@font-face {
+  font-family: 'Badaboom';
+  src: url('../assets/font/BADABB__.TTF') format('truetype');
+}
+
+/* Main Header Font  */
+@font-face {
+  font-family: 'Komika_Axis';
+  src: url('../assets/font/KOMIKAX_.ttf') format('truetype');
+}
+
+/* Secondary font */
+@import url('https://fonts.googleapis.com/css2?family=Fredoka&display=swap');
