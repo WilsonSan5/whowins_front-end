@@ -12,8 +12,6 @@ app.use(router).use(store)
 
 app.mount('#app')
 
-
-
 // Axios config
 axios.defaults.headers.common['Content-Type'] = 'application/merge-patch+json';
 axios.defaults.baseURL = 'https://127.0.0.1:8000/api';

@@ -3,22 +3,37 @@ import FighterCard from '../components/FighterCard.vue'
 import SlideMenu from '../components/SlideMenu.vue'
 import { ref, computed } from 'vue'
 import axios from 'axios'
+import { useStore } from 'vuex'
+const store = useStore()
 
 // ---- Variables ---- //
-const initialized = ref(false)
+const initialized = computed(() => {
+  return store.state.isInitialized
+})
 const isInversed = ref(false)
 const showPercentage = ref(false)
-const fighter1_percentage = ref()
-const fighter2_percentage = ref()
-const allFights = ref([]) // Current fights array
-const allNextFights = ref([]) // Next  fights array
-const currentKey = ref(0)
 var timeOut
 const screenWidth = ref(window.innerWidth)
+var shake = false // Because I want shake only if data get initialized
 
+//  ---- Fights array ------
+const allFights = computed(() => {
+  // Current fights array
+  return store.state.allFights
+})
+const allNextFights = computed(() => {
+  // Next  fights array
+  return store.state.nextFights
+})
+// ------ Current fight ----------
+const currentKey = ref(0)
 const currentFight = computed(() => {
+  // Current fight
   return allFights.value[currentKey.value]
 })
+// ---- Fighter Cards Data -------
+const fighter1_percentage = ref()
+const fighter2_percentage = ref()
 const fighter_1_name = computed(() => {
   return initialized.value ? currentFight.value.votes[0].Fighter.name : ''
 })
@@ -118,15 +133,19 @@ async function getFightsData() {
 
 async function initialize() {
   try {
-    allFights.value = await getFightsData()
-    initialized.value = true
-    allNextFights.value = await getFightsData()
+    store.state.allFights = await getFightsData()
+    store.state.isInitialized = true
+    store.state.nextFights = await getFightsData()
   } catch (e) {
     console.log(e)
   }
 }
 // ---- Logic ---- //
-initialize()
+if (!store.state.isInitialized) {
+  initialize()
+  shake = true
+}
+
 console.log(screenWidth.value)
 </script>
 <template>
@@ -138,19 +157,19 @@ console.log(screenWidth.value)
         :percentage="fighter1_percentage"
         :showPercentage="showPercentage"
         :isFirstCard="!isInversed ? true : false"
+        :shake="shake"
         @click="showPercentage ? nextFight() : voting(currentFight.votes[0])"
-        :class="{ secondCard: isInversed, shake: initialized }"
+        :class="{ secondCard: isInversed }"
       />
     </Transition>
     <Transition :name="screenWidth <= 1024 ? 'fromBottom' : 'fromRight'">
       <FighterCard
         v-if="initialized"
-        :class="{ shake: initialized }"
         :name="fighter_2_name"
         :percentage="fighter2_percentage"
-        :backgroundColor="isInversed == false ? 'secondaryColor' : 'mainColor'"
         :showPercentage="showPercentage"
         :isFirstCard="isInversed ? true : false"
+        :shake="shake"
         @click="showPercentage ? nextFight() : voting(currentFight.votes[1])"
       />
     </Transition>
@@ -182,7 +201,6 @@ console.log(screenWidth.value)
   right: 5px;
 }
 #cycle-arrows {
-  filter: drop-shadow(5px 5px 0px var(--color-background));
   transition: 0.5s;
 }
 
@@ -214,33 +232,6 @@ console.log(screenWidth.value)
   opacity: 0;
 }
 
-/*  Shake aniation */
-.shake {
-  animation: shake 0.1s;
-  animation-delay: 0.55s;
-}
-@keyframes shake {
-  0% {
-    transform: translate(1px, 1px);
-  }
-
-  20% {
-    transform: translate(-3px, 0px);
-  }
-
-  50% {
-    transform: translate(-2px, 2px);
-  }
-
-  70% {
-    transform: translate(3px, 1px);
-  }
-
-  100% {
-    transform: translate(1px, -2px);
-  }
-}
-
 /* Hover triggers only in desktop */
 @media (hover: hover) {
   #cycle-arrows:hover {
@@ -249,6 +240,8 @@ console.log(screenWidth.value)
     -o-transform: rotate(180deg);
     -ms-transform: rotate(180deg);
     transform: rotate(180deg);
+    margin-top: -2px;
+    margin-left: -2px;
 
     filter: drop-shadow(-5px -5px 0px var(--color-background));
   }

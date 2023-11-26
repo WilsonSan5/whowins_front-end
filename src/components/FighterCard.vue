@@ -17,12 +17,23 @@ const props = defineProps({
   isFirstCard: {
     type: Boolean,
     require: true
+  },
+  shake: {
+    type: Boolean,
+    require: true
   }
 })
 </script>
 
 <template>
-  <div class="card" :class="[isFirstCard ? 'mainColor' : 'secondaryColor']">
+  <div
+    class="card"
+    :class="[
+      isFirstCard ? 'mainColor' : 'secondaryColor',
+      shake ? 'shake' : '',
+      shake && !isFirstCard ? 'shake2' : ''
+    ]"
+  >
     <h2 v-if="props.name">
       {{ name }}
     </h2>
@@ -67,6 +78,57 @@ h2 {
   transform: translateY(-15px);
 }
 
+/*  Shake aniation */
+.shake {
+  animation: shake 0.1s;
+  animation-delay: 0.55s;
+}
+@keyframes shake {
+  0% {
+    transform: translate(1px, 1px);
+  }
+
+  20% {
+    transform: translate(-3px, 0px);
+  }
+
+  50% {
+    transform: translate(-2px, 2px);
+  }
+
+  70% {
+    transform: translate(3px, 1px);
+  }
+
+  100% {
+    transform: translate(2px, -2px);
+  }
+}
+.shake2 {
+  animation: shake 0.1s;
+  animation-delay: 0.55s;
+}
+@keyframes shake2 {
+  0% {
+    transform: translate(-2px, -1px);
+  }
+
+  20% {
+    transform: translate(2px, 0px);
+  }
+
+  50% {
+    transform: translate(-2px, 2px);
+  }
+
+  70% {
+    transform: translate(-3px, -1px);
+  }
+
+  100% {
+    transform: translate(-1px, -2px);
+  }
+}
 @media (min-width: 1024px) {
   .card {
     height: 100svh;
