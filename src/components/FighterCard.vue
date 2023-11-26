@@ -23,14 +23,10 @@ const props = defineProps({
 
 <template>
   <div class="card" :class="[isFirstCard ? 'mainColor' : 'secondaryColor']">
-    <h2 v-if="props.name" :class="[isFirstCard ? 'text-shadow-main' : 'text-shadow-secondary']">
+    <h2 v-if="props.name">
       {{ name }}
     </h2>
-    <PercentageCountUp
-      :class="[isFirstCard ? 'text-shadow-main' : 'text-shadow-secondary']"
-      v-if="props.showPercentage"
-      :percentageNumber="percentage"
-    />
+    <PercentageCountUp v-if="props.showPercentage" :percentageNumber="percentage" />
   </div>
 </template>
 
@@ -38,28 +34,18 @@ const props = defineProps({
 h2 {
   color: white;
   font-weight: 500;
-  font-size: 2.6rem;
+  font-size: clamp(2.3rem, 8vw, 4em);
   font-family: var(--font-main);
   text-align: center;
 
   position: relative;
   top: -10px;
   transition: 0.3s ease-out;
-}
-
-.text-shadow-main {
   text-shadow:
-    5px 5px 0 var(--color-secondary),
-    -3px 3px 0 var(--color-secondary),
-    -3px -3px 0 var(--color-secondary),
-    3px -3px 0 var(--color-secondary);
-}
-.text-shadow-secondary {
-  text-shadow:
-    5px 5px 0 var(--color-main),
-    -3px 3px 0 var(--color-main),
-    -3px -3px 0 var(--color-main),
-    3px -3px 0 var(--color-main);
+    5px 5px 0 var(--color-background),
+    -3px 3px 0 var(--color-background),
+    -3px -3px 0 var(--color-background),
+    3px -3px 0 var(--color-background);
 }
 
 .mainColor {
@@ -69,6 +55,7 @@ h2 {
   background-color: var(--color-secondary);
 }
 .card {
+  padding: 1em;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -84,6 +71,9 @@ h2 {
   .card {
     height: 100svh;
     width: 50vw;
+  }
+  h2 {
+    font-size: clamp(2.3rem, 4vw, 4em);
   }
 }
 </style>

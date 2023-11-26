@@ -11,7 +11,7 @@ const props = defineProps({
 })
 const displayedPercentage = ref(0)
 
-const animationDuration = 1000 // Total animation time
+const animationDuration = 1500 // Total animation time
 const incrementStep = (props.percentageNumber / animationDuration) * 100
 
 const animateCountUp = () => {

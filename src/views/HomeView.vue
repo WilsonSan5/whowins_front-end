@@ -106,7 +106,7 @@ async function getFightsData() {
   try {
     const response = await axios({
       method: 'GET',
-      url: '/fights/randomFight?page=1&is_balanced=true'
+      url: '/fights/randomFight'
     })
     console.log(response.data)
     return response.data
@@ -125,14 +125,13 @@ async function initialize() {
     console.log(e)
   }
 }
-
 // ---- Logic ---- //
 initialize()
 console.log(screenWidth.value)
 </script>
 <template>
   <div class="wrapper">
-    <Transition :name="[screenWidth < 1024 ? 'fromTop' : 'fromLeft']">
+    <Transition :name="screenWidth < 1024 ? 'fromTop' : 'fromLeft'">
       <FighterCard
         v-if="initialized"
         :name="fighter_1_name"
@@ -143,7 +142,7 @@ console.log(screenWidth.value)
         :class="{ secondCard: isInversed, shake: initialized }"
       />
     </Transition>
-    <Transition :name="[screenWidth <= 1024 ? 'fromBottom' : 'fromRight']">
+    <Transition :name="screenWidth <= 1024 ? 'fromBottom' : 'fromRight'">
       <FighterCard
         v-if="initialized"
         :class="{ shake: initialized }"
@@ -156,13 +155,16 @@ console.log(screenWidth.value)
       />
     </Transition>
   </div>
-  <img
-    id="cycle-arrows"
-    class="icon bottom-left"
-    src="../assets/icon/icon_refresh.png"
-    @click="nextFight()"
-  />
-  <SlideMenu />
+  <SlideMenu v-if="initialized" />
+  <Transition name="fromBottom">
+    <img
+      v-if="initialized"
+      id="cycle-arrows"
+      class="icon bottom-left"
+      src="../assets/icon/icon_refresh.png"
+      @click="nextFight()"
+    />
+  </Transition>
 </template>
 
 <style scoped>
@@ -180,23 +182,20 @@ console.log(screenWidth.value)
   right: 5px;
 }
 #cycle-arrows {
+  filter: drop-shadow(5px 5px 0px var(--color-background));
   transition: 0.5s;
 }
 
 /* Transition when App starts  Mobile*/
-.fromTop-enter-active {
+.fromTop-enter-active,
+.fromBottom-enter-active {
   transition: all 0.5s ease-in;
 }
 .fromTop-enter-from {
   transform: translateY(-100%);
-  opacity: 0;
-}
-.fromBottom-enter-active {
-  transition: all 0.5s ease-in;
 }
 .fromBottom-enter-from {
   transform: translateY(100%);
-  opacity: 0;
 }
 /* Transition when App starts  Desktop*/
 
@@ -217,11 +216,8 @@ console.log(screenWidth.value)
 
 /*  Shake aniation */
 .shake {
-  /* Start the shake animation and make the animation last for 0.5 seconds */
   animation: shake 0.1s;
   animation-delay: 0.55s;
-
-  /* When the animation is finished, start again */
 }
 @keyframes shake {
   0% {
@@ -231,12 +227,9 @@ console.log(screenWidth.value)
   20% {
     transform: translate(-3px, 0px);
   }
-  30% {
-    transform: translate(3px, 2px);
-  }
 
   50% {
-    transform: translate(-1px, 2px);
+    transform: translate(-2px, 2px);
   }
 
   70% {
@@ -244,7 +237,7 @@ console.log(screenWidth.value)
   }
 
   100% {
-    transform: translate(1px, -2px) rotate(-1deg);
+    transform: translate(1px, -2px);
   }
 }
 
@@ -256,6 +249,8 @@ console.log(screenWidth.value)
     -o-transform: rotate(180deg);
     -ms-transform: rotate(180deg);
     transform: rotate(180deg);
+
+    filter: drop-shadow(-5px -5px 0px var(--color-background));
   }
 }
 /*  Style for desktop */

@@ -10,6 +10,9 @@ h1 {
   font-family: var(--font-main);
 }
 
+a {
+  text-decoration: none;
+}
 
 
 /* Class for Logo */

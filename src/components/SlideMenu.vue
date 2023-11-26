@@ -3,19 +3,20 @@ import { ref } from 'vue'
 var isActive = ref(false)
 function togglemenu() {
   isActive.value = !isActive.value
-  console.log(isActive)
 }
 </script>
 
 <template>
   <img
+    id="menu_burger"
     v-if="!isActive"
     alt="slide-menu icon"
-    src="../assets/icon/icon_menu.png"
+    src="../assets/icon/icon_menu.svg"
     class="slide-menu-icon"
     @click="togglemenu()"
   />
   <img
+    id="icon_x"
     v-if="isActive"
     alt="slide-menu icon"
     src="../assets/icon/icon_x.svg"
@@ -24,8 +25,9 @@ function togglemenu() {
   />
   <Transition>
     <div v-if="isActive" class="slide-menu">
-      <h1 class="whowins-logo">WhoWins</h1>
+      <h1 class="whowins-logo" @click="togglemenu()">WhoWins</h1>
       <div class="links-wrapper">
+        <!-- <router-link to="about" @click="togglemenu()"> Strongest characters </router-link> -->
         <router-link to="about" @click="togglemenu()"> Submit a fight </router-link>
         <router-link to="about" @click="togglemenu()"> About </router-link>
         <router-link to="about" @click="togglemenu()"> Contact </router-link>
@@ -42,12 +44,30 @@ function togglemenu() {
   z-index: 2;
   width: 45px;
   height: 45px;
-
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+#menu_burger {
+  width: 50px;
+}
+#icon_x {
+  margin-right: 3px;
+}
+#menu_burger:hover {
+  margin-top: -2px;
+  margin-right: 2px;
+  filter: drop-shadow(5px 5px 0px var(--color-background));
+}
+#icon_x:hover {
+  filter: invert(39%) sepia(87%) saturate(3855%) hue-rotate(340deg) brightness(100%) contrast(90%);
+}
+h1 {
+  transition: 0.2s ease-in-out;
   cursor: pointer;
 }
 .slide-menu {
   width: 100vw;
-  height: 100vh;
+  height: 100svh;
   background-color: var(--color-background);
 
   /* Position */
@@ -59,11 +79,10 @@ function togglemenu() {
   /* Flex */
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 }
 .links-wrapper {
-  margin-bottom: auto;
+  margin: auto;
 
   /*  Flex */
   display: flex;
@@ -72,16 +91,24 @@ function togglemenu() {
 
   text-align: center;
   /*  Change anchor point */
-  transform: translateY(-50%);
+  transform: translateY(-40%);
 }
 .links-wrapper a {
   color: white;
   text-decoration: none;
   font-family: var(--font-main);
   font-size: 2em;
+  text-align: center;
+
+  transition: 0.2s ease-in-out;
 }
-.slide-menu h1 {
-  margin-bottom: auto;
+.links-wrapper a:hover,
+h1:hover {
+  text-shadow:
+    -3px -3px 0 var(--color-secondary),
+    3px -3px 0 var(--color-main),
+    5px 5px 0 var(--color-main),
+    -3px 3px 0 var(--color-main);
 }
 
 /* Slide-menu toggle animation */
