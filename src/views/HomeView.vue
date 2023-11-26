@@ -14,7 +14,7 @@ const isInversed = ref(false)
 const showPercentage = ref(false)
 var timeOut
 const screenWidth = ref(window.innerWidth)
-var shake = false // Because I want shake only if data get initialized
+var shake = false // Because I want to shake only if data get initialized
 
 //  ---- Fights array ------
 const allFights = computed(() => {
@@ -96,9 +96,7 @@ async function voting(vote) {
   // }
   // Loading the new fight
   timeOut = setTimeout(() => {
-    if (showPercentage.value == true) {
-      nextFight()
-    }
+    nextFight()
   }, timeBeforeNewFight)
 }
 async function nextFight() {
@@ -107,9 +105,9 @@ async function nextFight() {
   isInversed.value = Math.random() < 0.5 // Sometimes it reverses the name for better dynamics
   if (currentKey.value >= allFights.value.length - 1) {
     console.log('reset')
-    allFights.value = allNextFights.value // The current Fights switching to the new Fights
+    store.state.allFights = store.state.nextFights // The current Fights switching to the new Fights
     currentKey.value = 0
-    allNextFights.value = await getFightsData() // Fetching the next Fights
+    store.state.nextFights = await getFightsData() // Fetching the next Fights
   } else {
     currentKey.value++
   }
@@ -129,8 +127,6 @@ async function getFightsData() {
     console.log(error)
   }
 }
-// Fisher-Yates Shuffle
-
 async function initialize() {
   try {
     store.state.allFights = await getFightsData()
