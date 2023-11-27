@@ -21,10 +21,6 @@ const allFights = computed(() => {
   // Current fights array
   return store.state.allFights
 })
-const allNextFights = computed(() => {
-  // Next  fights array
-  return store.state.nextFights
-})
 // ------ Current fight ----------
 const currentKey = ref(0)
 const currentFight = computed(() => {

@@ -28,7 +28,7 @@ function togglemenu() {
       <h1 class="whowins-logo" @click="togglemenu()">WhoWins</h1>
       <div class="links-wrapper">
         <!-- <router-link to="about" @click="togglemenu()"> Strongest characters </router-link> -->
-        <router-link to="about" @click="togglemenu()"> Submit a fight </router-link>
+        <router-link to="about" @click="togglemenu()"> Submit a fighter </router-link>
         <router-link to="about" @click="togglemenu()"> About </router-link>
         <router-link to="about" @click="togglemenu()"> Contact </router-link>
       </div>

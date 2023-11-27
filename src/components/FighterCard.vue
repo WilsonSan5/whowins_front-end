@@ -78,7 +78,7 @@ h2 {
   transform: translateY(-15px);
 }
 
-/*  Shake aniation */
+/*  Shake animation */
 .shake {
   animation: shake 0.1s;
   animation-delay: 0.55s;
