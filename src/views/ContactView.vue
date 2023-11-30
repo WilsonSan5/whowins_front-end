@@ -11,7 +11,7 @@ const isLoading = ref(false)
 function sendMessage() {
   isLoading.value = true
   axios
-    .post('https://127.0.0.1:8000/send/mail', {
+    .post('send/mail', {
       email: email.value,
       message: message.value
     })
