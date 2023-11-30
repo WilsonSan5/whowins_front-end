@@ -5,7 +5,6 @@ function togglemenu() {
   isActive.value = !isActive.value
 }
 </script>
-
 <template>
   <img
     id="menu_burger"
@@ -28,9 +27,9 @@ function togglemenu() {
       <h1 class="whowins-logo" @click="togglemenu()">WhoWins</h1>
       <div class="links-wrapper">
         <!-- <router-link to="about" @click="togglemenu()"> Strongest characters </router-link> -->
-        <router-link to="about" @click="togglemenu()"> Submit a fighter </router-link>
+        <router-link to="submitFighter" @click="togglemenu()"> Submit a fighter </router-link>
         <router-link to="about" @click="togglemenu()"> About </router-link>
-        <router-link to="about" @click="togglemenu()"> Contact </router-link>
+        <router-link to="contact" @click="togglemenu()"> Contact </router-link>
       </div>
     </div>
   </Transition>
@@ -61,9 +60,17 @@ function togglemenu() {
 #icon_x:hover {
   filter: invert(39%) sepia(87%) saturate(3855%) hue-rotate(340deg) brightness(100%) contrast(90%);
 }
-h1 {
+.slide-menu h1 {
   transition: 0.2s ease-in-out;
   cursor: pointer;
+}
+.slide-menu h1:hover,
+.slide-menu a:hover {
+  text-shadow:
+    -3px -3px 0 var(--color-secondary),
+    3px -3px 0 var(--color-main),
+    5px 5px 0 var(--color-main),
+    -3px 3px 0 var(--color-main);
 }
 .slide-menu {
   width: 100vw;
@@ -102,15 +109,6 @@ h1 {
 
   transition: 0.2s ease-in-out;
 }
-.links-wrapper a:hover,
-h1:hover {
-  text-shadow:
-    -3px -3px 0 var(--color-secondary),
-    3px -3px 0 var(--color-main),
-    5px 5px 0 var(--color-main),
-    -3px 3px 0 var(--color-main);
-}
-
 /* Slide-menu toggle animation */
 .v-enter-active,
 .v-leave-active {

@@ -27,7 +27,7 @@ const currentFight = computed(() => {
   // Current fight
   return allFights.value[currentKey.value]
 })
-// ---- Fighter Cards Data -------
+// ------ Fighter Cards Data -------
 const fighter1_percentage = ref()
 const fighter2_percentage = ref()
 const fighter_1_name = computed(() => {
@@ -83,7 +83,7 @@ async function voting(vote) {
   // Add 1 vote Back-End
   // try {
   //   await axios
-  //     .patch('/votes/' + vote.id, { numberOfVotes: vote.numberOfVotes + 1 })
+  //     .patch('api/votes/' + vote.id, { numberOfVotes: vote.numberOfVotes + 1 })
   //     .then((res) => {
   //       console.log(res.data)
   //     })
@@ -115,7 +115,7 @@ async function getFightsData() {
   try {
     const response = await axios({
       method: 'GET',
-      url: '/fights/randomFight'
+      url: 'api/fights/randomFight'
     })
     console.log(response.data)
     return response.data
@@ -180,7 +180,6 @@ console.log(screenWidth.value)
 
 <style scoped>
 .wrapper {
-  width: 100vw;
   display: flex;
   flex-direction: column;
 }

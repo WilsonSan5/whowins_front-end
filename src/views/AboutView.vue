@@ -1,9 +1,28 @@
-<script setup></script>
+<script setup>
+import { computed, ref, onMounted } from 'vue'
+const pixelFromTop = ref()
+const crossIsVisible = computed(() => {
+  return window.pageYOffset > 0 ? false : true
+})
+
+onMounted(() => {
+  window.addEventListener('scroll', console.log('ezeza'))
+})
+function scrollHandler() {
+  pixelFromTop.value = window.pageYOffset
+}
+console.log(window.pageYOffset, crossIsVisible.value)
+</script>
 <template>
   <router-link to="/">
-    <img src="../assets/icon/icon_x.svg" alt="cross icon" class="slide-menu-icon"
+    <img
+      src="../assets/icon/icon_x.svg"
+      alt="cross icon"
+      class="slide-menu-icon"
+      id="icon_x"
+      v-if="crossIsVisible"
   /></router-link>
-  <div class="wrapper">
+  <div class="wrapper" @scroll="scrollHandler">
     <h1>About</h1>
     <section>
       <p>

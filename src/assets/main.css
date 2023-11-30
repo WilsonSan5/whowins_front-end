@@ -2,17 +2,22 @@
 
 #app {
   margin: 0 auto;
+  width: 100vw;
+  height: 100svh;
   font-weight: normal;
-  overflow: hidden;
 }
 
 h1 {
   font-family: var(--font-main);
 }
 
+h2 {
+  font-family: var(--font-main);
+}
+
 a {
   text-decoration: none;
-  color: var(--color-secondary);
+  color: rgb(255, 149, 0);
 }
 
 
@@ -24,5 +29,8 @@ a {
 }
 
 
+
 /* Only for desktop */
-@media (hover: hover) {}
+@media (hover: hover) {
+  .slide-menu-icon {}
+}
