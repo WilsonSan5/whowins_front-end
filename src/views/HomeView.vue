@@ -80,7 +80,7 @@ async function nextFight() {
   clearTimeout(timeOut) // reset the timeout
   showPercentage.value = false // Removing Percentage
   store.state.isInversed = Math.random() < 0.5 // Sometimes it reverses the name for better dynamics
-  console.log('isInversed', isInversed.value)
+
   if (currentKey.value >= allFights.value.length - 1) {
     store.state.allFights = store.state.nextFights // The current Fights switching to the new Fights
     store.state.currentKey = 0
