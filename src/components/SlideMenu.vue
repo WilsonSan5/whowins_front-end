@@ -1,14 +1,17 @@
 <script setup>
-import { ref } from 'vue'
-var isActive = ref(false)
+import { computed } from 'vue'
+import store from '../store'
+var isMenuActive = computed(() => {
+  return store.state.isMenuActive
+})
 function togglemenu() {
-  isActive.value = !isActive.value
+  store.state.isMenuActive = !store.state.isMenuActive
 }
 </script>
 <template>
   <img
     id="menu_burger"
-    v-if="!isActive"
+    v-if="!isMenuActive"
     alt="slide-menu icon"
     src="../assets/icon/icon_menu.svg"
     class="slide-menu-icon"
@@ -16,14 +19,14 @@ function togglemenu() {
   />
   <img
     id="icon_x"
-    v-if="isActive"
+    v-if="isMenuActive"
     alt="slide-menu icon"
     src="../assets/icon/icon_x.svg"
     class="slide-menu-icon"
     @click="togglemenu()"
   />
   <Transition>
-    <div v-if="isActive" class="slide-menu">
+    <div v-if="isMenuActive" class="slide-menu">
       <h1 class="whowins-logo" @click="togglemenu()">WhoWins</h1>
       <div class="links-wrapper">
         <!-- <router-link to="about" @click="togglemenu()"> Strongest characters </router-link> -->

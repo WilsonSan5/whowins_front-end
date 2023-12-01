@@ -3,14 +3,15 @@ import FighterCard from '../components/FighterCard.vue'
 import SlideMenu from '../components/SlideMenu.vue'
 import { ref, computed } from 'vue'
 import axios from 'axios'
-import { useStore } from 'vuex'
-const store = useStore()
+import store from '../store'
 
 // ---- Variables ---- //
 const initialized = computed(() => {
   return store.state.isInitialized
 })
-const isInversed = ref(false)
+const isInversed = computed(() => {
+  return store.state.isInversed
+})
 const showPercentage = ref(false)
 var timeOut
 const screenWidth = ref(window.innerWidth)
@@ -22,7 +23,9 @@ const allFights = computed(() => {
   return store.state.allFights
 })
 // ------ Current fight ----------
-const currentKey = ref(0)
+const currentKey = computed(() => {
+  return store.state.currentKey
+})
 const currentFight = computed(() => {
   // Current fight
   return allFights.value[currentKey.value]
@@ -81,15 +84,15 @@ async function voting(vote) {
   )
   showPercentage.value = true
   // Add 1 vote Back-End
-  // try {
-  //   await axios
-  //     .patch('api/votes/' + vote.id, { numberOfVotes: vote.numberOfVotes + 1 })
-  //     .then((res) => {
-  //       console.log(res.data)
-  //     })
-  // } catch (e) {
-  //   console.log(e)
-  // }
+  try {
+    await axios
+      .patch('api/votes/' + vote.id, { numberOfVotes: vote.numberOfVotes + 1 })
+      .then((res) => {
+        console.log(res.data)
+      })
+  } catch (e) {
+    console.log(e)
+  }
   // Loading the new fight
   timeOut = setTimeout(() => {
     nextFight()
@@ -98,14 +101,15 @@ async function voting(vote) {
 async function nextFight() {
   clearTimeout(timeOut) // reset the timeout
   showPercentage.value = false // Removing Percentage
-  isInversed.value = Math.random() < 0.5 // Sometimes it reverses the name for better dynamics
+  store.state.isInversed = Math.random() < 0.5 // Sometimes it reverses the name for better dynamics
+  console.log('isInversed', isInversed.value)
   if (currentKey.value >= allFights.value.length - 1) {
     console.log('reset')
     store.state.allFights = store.state.nextFights // The current Fights switching to the new Fights
-    currentKey.value = 0
+    store.state.currentKey = 0
     store.state.nextFights = await getFightsData() // Fetching the next Fights
   } else {
-    currentKey.value++
+    store.state.currentKey++
   }
   console.log('currentKey : ' + currentKey.value)
 }
@@ -137,8 +141,7 @@ if (!store.state.isInitialized) {
   initialize()
   shake = true
 }
-
-console.log(screenWidth.value)
+console.log('screen-width :', screenWidth.value)
 </script>
 <template>
   <div class="wrapper">

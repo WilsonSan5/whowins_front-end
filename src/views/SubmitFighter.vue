@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import axios from 'axios'
 import LoadingScreen from '../components/LoadingScreen.vue'
 import router from '../router'
+import store from '../store'
 // form data
 const fighterName = ref()
 const fighter2Name = ref()
@@ -43,8 +44,12 @@ function submitFighter() {
 </script>
 <template>
   <LoadingScreen v-if="isLoading" />
-  <router-link to="/">
-    <img src="../assets/icon/icon_x.svg" alt="cross icon" class="slide-menu-icon" id="icon_x"
+  <router-link to="/" @click="store.state.isMenuActive = true">
+    <img
+      src="../assets/icon/icon_arrow_back.svg"
+      alt="cross icon"
+      class="slide-menu-icon"
+      id="icon_x"
   /></router-link>
   <div class="wrapper">
     <h1>Submit a fighter</h1>

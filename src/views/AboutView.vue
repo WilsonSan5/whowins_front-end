@@ -1,22 +1,20 @@
 <script setup>
-import { computed, ref, onMounted } from 'vue'
+import { computed, ref } from 'vue'
+import store from '../store'
 const pixelFromTop = ref()
 const crossIsVisible = computed(() => {
   return window.pageYOffset > 0 ? false : true
 })
 
-onMounted(() => {
-  window.addEventListener('scroll', console.log('ezeza'))
-})
 function scrollHandler() {
   pixelFromTop.value = window.pageYOffset
 }
 console.log(window.pageYOffset, crossIsVisible.value)
 </script>
 <template>
-  <router-link to="/">
+  <router-link to="/" @click="store.state.isMenuActive = true">
     <img
-      src="../assets/icon/icon_x.svg"
+      src="../assets/icon/icon_arrow_back.svg"
       alt="cross icon"
       class="slide-menu-icon"
       id="icon_x"
