@@ -1,5 +1,6 @@
 <script setup>
 import { computed, ref } from 'vue'
+import store from '../store'
 const pixelFromTop = ref()
 const crossIsVisible = computed(() => {
   return window.pageYOffset > 0 ? false : true
@@ -10,9 +11,9 @@ function scrollHandler() {
 }
 </script>
 <template>
-  <router-link to="/">
+  <router-link to="/" @click="store.state.isMenuActive = true">
     <img
-      src="../assets/icon/icon_x.svg"
+      src="../assets/icon/icon_arrow_back.svg"
       alt="cross icon"
       class="slide-menu-icon"
       id="icon_x"
