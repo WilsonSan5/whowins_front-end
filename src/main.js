@@ -17,4 +17,4 @@ axios.defaults.headers.common['Content-Type'] = 'application/merge-patch+json';
 axios.defaults.headers.post['Content-Type'] = 'application/ld+json'
 
 // PROD
-axios.defaults.baseURL = 'https://www.whowins.wilsonsan.fr/';
+axios.defaults.baseURL = 'https://intranet.whowins.fun/';
