@@ -1,17 +1,13 @@
 <script setup>
-import { computed, ref, onMounted } from 'vue'
+import { computed, ref } from 'vue'
 const pixelFromTop = ref()
 const crossIsVisible = computed(() => {
   return window.pageYOffset > 0 ? false : true
 })
 
-onMounted(() => {
-  window.addEventListener('scroll', console.log('ezeza'))
-})
 function scrollHandler() {
   pixelFromTop.value = window.pageYOffset
 }
-console.log(window.pageYOffset, crossIsVisible.value)
 </script>
 <template>
   <router-link to="/">

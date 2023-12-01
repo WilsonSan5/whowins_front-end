@@ -61,35 +61,13 @@ async function voting(vote) {
   fighter2_percentage.value = 100 - fighter1_percentage.value
 
   console.log('Voting for ' + vote.Fighter.name)
-  console.log(
-    'Total votes for ' +
-      fighter_1_name.value +
-      ': ' +
-      totalVoteFighter_1 +
-      ' (' +
-      fighter1_percentage.value +
-      '%)'
-  )
-  console.log(
-    'Total votes for ' +
-      fighter_2_name.value +
-      ': ' +
-      totalVoteFighter_2 +
-      ' (' +
-      fighter2_percentage.value +
-      '%)'
-  )
   showPercentage.value = true
   // Add 1 vote Back-End
-  // try {
-  //   await axios
-  //     .patch('api/votes/' + vote.id, { numberOfVotes: vote.numberOfVotes + 1 })
-  //     .then((res) => {
-  //       console.log(res.data)
-  //     })
-  // } catch (e) {
-  //   console.log(e)
-  // }
+  try {
+    await axios.patch('api/votes/' + vote.id, { numberOfVotes: vote.numberOfVotes + 1 })
+  } catch (e) {
+    console.log(e)
+  }
   // Loading the new fight
   timeOut = setTimeout(() => {
     nextFight()
@@ -100,14 +78,12 @@ async function nextFight() {
   showPercentage.value = false // Removing Percentage
   isInversed.value = Math.random() < 0.5 // Sometimes it reverses the name for better dynamics
   if (currentKey.value >= allFights.value.length - 1) {
-    console.log('reset')
     store.state.allFights = store.state.nextFights // The current Fights switching to the new Fights
     currentKey.value = 0
     store.state.nextFights = await getFightsData() // Fetching the next Fights
   } else {
     currentKey.value++
   }
-  console.log('currentKey : ' + currentKey.value)
 }
 
 // Get request
@@ -117,7 +93,6 @@ async function getFightsData() {
       method: 'GET',
       url: 'api/fights/randomFight'
     })
-    console.log(response.data)
     return response.data
   } catch (error) {
     console.log(error)
@@ -137,8 +112,6 @@ if (!store.state.isInitialized) {
   initialize()
   shake = true
 }
-
-console.log(screenWidth.value)
 </script>
 <template>
   <div class="wrapper">
