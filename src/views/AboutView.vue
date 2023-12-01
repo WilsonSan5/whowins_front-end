@@ -35,12 +35,19 @@ console.log(window.pageYOffset, crossIsVisible.value)
     </section>
     <section>
       <h2>About me</h2>
-      <img src="../assets/photo_portfolio.png" alt="picture of my face" />
+      <a href="https://wilsonsan.fr" id="link-wrapper" target="_blank">
+        <div id="indication">
+          <p id="indication-text">My Portfolio</p>
+          <img src="../assets/curved-arrow.png" id="curved-arrow" />
+        </div>
+        <img src="../assets/photo_portfolio.png" alt="picture of my face" id="portfolio-img" />
+      </a>
       <p id="about-me-text">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis rem delectus temporibus,
-        nulla vero praesentium culpa quas cum ea sequi sint maiores nam, vel molestiae est.
+        Hi, I'm a full stack web developer specialized in VueJS and Symfony, but above all, I'm a
+        fan of geek culture. 👾<br />If you're interested in my skills and want to know more, click
+        on my portfolio website.<br />
+        Otherwise, we can always talk about video games!🤓
       </p>
-      <p>To know more about me, check my <a href="https://wilsonsan.fr">website</a>.</p>
     </section>
   </div>
 </template>
@@ -52,8 +59,8 @@ console.log(window.pageYOffset, crossIsVisible.value)
   max-width: 800px;
   display: flex;
   flex-direction: column;
-  align-items: left;
   justify-content: center;
+  overflow-x: hidden;
 }
 section {
   display: flex;
@@ -76,10 +83,37 @@ h2 {
 b {
   font-weight: 600;
 }
-.wrapper img {
+
+/*  Portfolio image */
+#link-wrapper {
+  text-align: center;
+  color: white;
+}
+#portfolio-img {
   margin: auto;
   padding: 0 0 1rem 0;
-  width: clamp(360px, 45vw, 450px);
+  width: 100%;
+  max-width: 500px;
+}
+#indication-text {
+  margin: auto;
+  width: max-content;
+  position: absolute;
+  font-size: clamp(1.2em, 3vw, 2rem);
+  font-family: var(--font-main);
+  position: relative;
+  left: clamp(100px, 20vw, 250px);
+}
+#curved-arrow {
+  margin: auto;
+  position: relative;
+  width: clamp(100px, 15vw, 150px);
+  left: 10%;
+}
+
+#indication {
+  position: relative;
+  top: 100px;
 }
 /* Desktop */
 @media (min-width: 1024px) {
