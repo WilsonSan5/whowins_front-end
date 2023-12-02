@@ -67,7 +67,9 @@ async function voting(vote) {
   showPercentage.value = true
   // Add 1 vote Back-End
   try {
-    await axios.patch('api/votes/' + vote.id, { numberOfVotes: vote.numberOfVotes + 1 })
+    axios.patch('api/votes/' + vote.id, { numberOfVotes: vote.numberOfVotes + 1 }).then((res) => {
+      console.log(res.data)
+    })
   } catch (e) {
     console.log(e)
   }
