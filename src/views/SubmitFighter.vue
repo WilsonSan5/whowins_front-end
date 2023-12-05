@@ -56,6 +56,10 @@ function submitFighter() {
     <div v-if="response" class="alert" :class="[response.status == 201 ? 'good' : 'bad']">
       Thank you for your contribution !
     </div>
+    <p id="headline">
+      Wanna see your favorite character&nbsp;?<br />
+      Send it !
+    </p>
     <form @submit.prevent="submitFighter()">
       <label for="fighter-name">Fighter 1</label>
       <input v-model="fighterName" name="fight-name" type="text" placeholder="Name" required />
@@ -91,6 +95,12 @@ h1 {
   padding: 1rem 0;
   text-align: center;
 }
+
+#headline {
+  margin-top: auto;
+  font-size: 1.4em;
+  text-align: center;
+}
 .wrapper {
   padding: 0 1.7em;
   margin: auto;
@@ -102,6 +112,7 @@ h1 {
 }
 form {
   margin: auto 0;
+  margin-top: 80px;
   display: flex;
   flex-direction: column;
   gap: 5px;
