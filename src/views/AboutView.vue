@@ -23,14 +23,10 @@ console.log(window.pageYOffset, crossIsVisible.value)
   <div class="wrapper" @scroll="scrollHandler">
     <h1>About</h1>
     <section>
+      <p><b>If Spiderman and Darth Vader are fighting, which side are you on? </b></p>
       <p>
-        Ever wondered who would emerge victorious in a face-off between your favorite fictional
-        characters?
-      </p>
-      <p><b>Look no further !</b></p>
-      <p>
-        WhoWins is a game where you can engage in friendly debates and cast your votes to determine
-        the winner of epic clashes between two famous characters.
+        WhoWins is a "Would you rather" type of game where you cast your votes for the strongest
+        characters.
       </p>
     </section>
     <section>
@@ -50,6 +46,9 @@ console.log(window.pageYOffset, crossIsVisible.value)
       </p>
     </section>
   </div>
+  <!-- <router-link to="contact">
+    <div id="contact-CTA"></div>
+  </router-link> -->
 </template>
 
 <style scoped>
@@ -86,6 +85,7 @@ b {
 
 /*  Portfolio image */
 #link-wrapper {
+  margin-top: -60px;
   text-align: center;
   color: white;
 }
@@ -114,6 +114,16 @@ b {
 #indication {
   position: relative;
   top: 100px;
+}
+
+#contact-CTA {
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  aspect-ratio: 1/1;
+  width: 80px;
+  background-color: orange;
+  border-radius: 50%;
 }
 /* Desktop */
 @media (min-width: 1024px) {

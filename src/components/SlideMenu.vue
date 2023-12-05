@@ -41,16 +41,16 @@ function togglemenu() {
 <style>
 .slide-menu-icon {
   position: fixed;
-  top: 10px;
+  top: 12px;
   right: 10px;
   z-index: 2;
-  width: 45px;
-  height: 45px;
+  width: 50px;
+  height: 50px;
   cursor: pointer;
   transition: 0.2s ease-in-out;
 }
 #menu_burger {
-  width: 50px;
+  width: 57px;
 }
 #icon_x {
   margin-right: 3px;

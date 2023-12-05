@@ -42,6 +42,7 @@ function sendMessage() {
     <div v-if="response" class="alert" :class="[response.status == 200 ? 'good' : 'bad']">
       {{ response.data }}
     </div>
+    <p id="headline">Let's work together !</p>
     <form @submit.prevent="sendMessage()">
       <label for="email">E-mail</label>
       <input v-model="email" name="email" type="email" placeholder="Your email here ..." required />
@@ -61,6 +62,11 @@ function sendMessage() {
 <style scoped>
 h1 {
   padding: 1rem 0;
+  text-align: center;
+}
+#headline {
+  margin-top: auto;
+  font-size: 1.4em;
   text-align: center;
 }
 .wrapper {
@@ -85,7 +91,8 @@ input {
   height: 40px;
 }
 textarea {
-  height: 300px;
+  height: 40svh;
+  max-height: 300px;
   resize: none;
 }
 input,
@@ -134,6 +141,7 @@ button:hover {
 .bad {
   background-color: rgb(255, 153, 153);
 }
+
 /* Desktop */
 @media (min-width: 1024px) {
   textarea {
