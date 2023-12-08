@@ -16,6 +16,6 @@ app.mount('#app')
 axios.defaults.headers.common['Content-Type'] = 'application/merge-patch+json';
 axios.defaults.headers.post['Content-Type'] = 'application/ld+json'
 
-axios.defaults.baseURL = 'https://127.0.0.1:8000/';
+axios.defaults.baseURL = store.state.defaultURL;
 
 // axios.defaults.baseURL = 'https://www.whowins.wilsonsan.fr/';

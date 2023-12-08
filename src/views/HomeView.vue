@@ -12,6 +12,7 @@ const initialized = computed(() => {
 const isInversed = computed(() => {
   return store.state.isInversed
 })
+const defaultURL = store.state.defaultURL
 const showPercentage = ref(false)
 var timeOut
 const screenWidth = ref(window.innerWidth)
@@ -33,14 +34,21 @@ const currentFight = computed(() => {
 // ------ Fighter Cards Data -------
 const fighter1_percentage = ref()
 const fighter2_percentage = ref()
+
 const fighter_1_name = computed(() => {
   return initialized.value ? currentFight.value.votes[0].Fighter.name : ''
+})
+const fighter_1_image = computed(() => {
+  return initialized.value ? defaultURL + currentFight.value.votes[0].Fighter.image : ''
 })
 const fighter_1_numberOfVotes = computed(() => {
   return initialized.value ? currentFight.value.votes[0].numberOfVotes : 0
 })
 const fighter_2_name = computed(() => {
   return initialized.value ? currentFight.value.votes[1].Fighter.name : ''
+})
+const fighter_2_image = computed(() => {
+  return initialized.value ? defaultURL + currentFight.value.votes[1].Fighter.image : ''
 })
 const fighter_2_numberOfVotes = computed(() => {
   return initialized.value ? currentFight.value.votes[1].numberOfVotes : 0
@@ -147,6 +155,7 @@ console.log('screen-width :', screenWidth.value)
       <FighterCard
         v-if="initialized"
         :name="fighter_1_name"
+        :image="fighter_1_image"
         :percentage="fighter1_percentage"
         :showPercentage="showPercentage"
         :isFirstCard="!isInversed ? true : false"
@@ -159,6 +168,7 @@ console.log('screen-width :', screenWidth.value)
       <FighterCard
         v-if="initialized"
         :name="fighter_2_name"
+        :image="fighter_2_image"
         :percentage="fighter2_percentage"
         :showPercentage="showPercentage"
         :isFirstCard="isInversed ? true : false"

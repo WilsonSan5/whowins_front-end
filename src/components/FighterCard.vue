@@ -6,6 +6,10 @@ const props = defineProps({
     type: String,
     required: true
   },
+  image: {
+    type: String,
+    require: false
+  },
   percentage: {
     type: Number,
     require: true
@@ -34,11 +38,7 @@ const props = defineProps({
       shake && !isFirstCard ? 'shake2' : ''
     ]"
   >
-    <img
-      :class="[isFirstCard ? 'lowOpacity' : 'highOpacity']"
-      class="fighter-img"
-      src="https://wallpapers.com/images/hd/luffy-black-backdrop-with-iconic-straw-hat-sd3icj25pykka4kq.jpg"
-    />
+    <img :class="[isFirstCard ? 'lowOpacity' : 'highOpacity']" class="fighter-img" :src="image" />
     <h2 v-if="props.name">
       {{ name }}
     </h2>
@@ -81,27 +81,12 @@ h2 {
 
   overflow: hidden;
 }
-/* .card::after {
-  content: '';
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  bottom: 0px;
-  left: 0px;
-  height: 50%;
-  opacity: 0.15;
-
-  background-image: url('../assets/dark-vador-darth-vader-article-attakus-art.jpg');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: 47%;
-} */
-
 .fighter-img {
   opacity: 0.2;
-  height: 50svh;
-  background-size: cover;
+  width: calc(100% + 2em);
+  height: 100%;
   transition: 0.3s ease-out;
+  object-fit: cover;
 }
 .card:hover h2 {
   transform: translateY(-15px);
@@ -174,6 +159,8 @@ h2 {
   .fighter-img {
     opacity: 0.2;
     height: 100svh;
+    max-width: 50vw;
+    background-size: contain;
   }
   h2 {
     font-size: clamp(2.3rem, 4vw, 4em);
