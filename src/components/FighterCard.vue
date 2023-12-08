@@ -6,6 +6,10 @@ const props = defineProps({
     type: String,
     required: true
   },
+  image: {
+    type: String,
+    require: false
+  },
   percentage: {
     type: Number,
     require: true
@@ -34,6 +38,7 @@ const props = defineProps({
       shake && !isFirstCard ? 'shake2' : ''
     ]"
   >
+    <img :class="[isFirstCard ? 'lowOpacity' : 'highOpacity']" class="fighter-img" :src="image" />
     <h2 v-if="props.name">
       {{ name }}
     </h2>
@@ -48,9 +53,9 @@ h2 {
   font-size: clamp(2.3rem, 8vw, 4em);
   font-family: var(--font-main);
   text-align: center;
+  z-index: 1;
 
-  position: relative;
-  top: -10px;
+  position: absolute;
   transition: 0.3s ease-out;
   text-shadow:
     5px 5px 0 var(--color-background),
@@ -66,18 +71,35 @@ h2 {
   background-color: var(--color-secondary);
 }
 .card {
-  padding: 1em;
+  padding: 0 1em;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   height: 50svh;
   cursor: pointer;
+
+  overflow: hidden;
+}
+.fighter-img {
+  opacity: 0.2;
+  width: calc(100% + 2em);
+  height: 100%;
+  transition: 0.3s ease-out;
+  object-fit: cover;
 }
 .card:hover h2 {
   transform: translateY(-15px);
 }
-
+.card:hover .fighter-img {
+  transform: scale(105%);
+}
+.lowOpacity {
+  opacity: 0.2;
+}
+.highOpacity {
+  opacity: 0.4;
+}
 /*  Shake animation */
 .shake {
   animation: shake 0.1s;
@@ -133,6 +155,12 @@ h2 {
   .card {
     height: 100svh;
     width: 50vw;
+  }
+  .fighter-img {
+    opacity: 0.2;
+    height: 100svh;
+    max-width: 50vw;
+    background-size: contain;
   }
   h2 {
     font-size: clamp(2.3rem, 4vw, 4em);
