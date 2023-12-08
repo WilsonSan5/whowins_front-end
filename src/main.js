@@ -18,4 +18,3 @@ axios.defaults.headers.post['Content-Type'] = 'application/ld+json'
 
 axios.defaults.baseURL = store.state.defaultURL;
 
-// axios.defaults.baseURL = 'https://www.whowins.wilsonsan.fr/';
