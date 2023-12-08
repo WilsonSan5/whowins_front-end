@@ -38,7 +38,12 @@ const props = defineProps({
       shake && !isFirstCard ? 'shake2' : ''
     ]"
   >
-    <img :class="[isFirstCard ? 'lowOpacity' : 'highOpacity']" class="fighter-img" :src="image" />
+    <img
+      v-if="image"
+      :class="[isFirstCard ? 'lowOpacity' : 'highOpacity']"
+      class="fighter-img"
+      :src="image"
+    />
     <h2 v-if="props.name">
       {{ name }}
     </h2>

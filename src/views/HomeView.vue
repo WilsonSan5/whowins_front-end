@@ -39,7 +39,7 @@ const fighter_1_name = computed(() => {
   return initialized.value ? currentFight.value.votes[0].Fighter.name : ''
 })
 const fighter_1_image = computed(() => {
-  return initialized.value ? defaultURL + currentFight.value.votes[0].Fighter.image : ''
+  return initialized.value ? defaultURL + currentFight.value.votes[0].Fighter.image : null
 })
 const fighter_1_numberOfVotes = computed(() => {
   return initialized.value ? currentFight.value.votes[0].numberOfVotes : 0
@@ -48,7 +48,7 @@ const fighter_2_name = computed(() => {
   return initialized.value ? currentFight.value.votes[1].Fighter.name : ''
 })
 const fighter_2_image = computed(() => {
-  return initialized.value ? defaultURL + currentFight.value.votes[1].Fighter.image : ''
+  return initialized.value ? defaultURL + currentFight.value.votes[1].Fighter.image : null
 })
 const fighter_2_numberOfVotes = computed(() => {
   return initialized.value ? currentFight.value.votes[1].numberOfVotes : 0
