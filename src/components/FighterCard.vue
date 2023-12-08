@@ -34,6 +34,11 @@ const props = defineProps({
       shake && !isFirstCard ? 'shake2' : ''
     ]"
   >
+    <img
+      :class="[isFirstCard ? 'lowOpacity' : 'highOpacity']"
+      class="fighter-img"
+      src="https://wallpapers.com/images/hd/luffy-black-backdrop-with-iconic-straw-hat-sd3icj25pykka4kq.jpg"
+    />
     <h2 v-if="props.name">
       {{ name }}
     </h2>
@@ -48,9 +53,9 @@ h2 {
   font-size: clamp(2.3rem, 8vw, 4em);
   font-family: var(--font-main);
   text-align: center;
+  z-index: 1;
 
-  position: relative;
-  top: -10px;
+  position: absolute;
   transition: 0.3s ease-out;
   text-shadow:
     5px 5px 0 var(--color-background),
@@ -66,18 +71,50 @@ h2 {
   background-color: var(--color-secondary);
 }
 .card {
-  padding: 1em;
+  padding: 0 1em;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   height: 50svh;
   cursor: pointer;
+
+  overflow: hidden;
+}
+/* .card::after {
+  content: '';
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  height: 50%;
+  opacity: 0.15;
+
+  background-image: url('../assets/dark-vador-darth-vader-article-attakus-art.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 47%;
+} */
+
+.fighter-img {
+  opacity: 0.2;
+  height: 50svh;
+  background-size: cover;
+  transition: 0.3s ease-out;
 }
 .card:hover h2 {
   transform: translateY(-15px);
 }
-
+.card:hover .fighter-img {
+  transform: scale(105%);
+}
+.lowOpacity {
+  opacity: 0.2;
+}
+.highOpacity {
+  opacity: 0.4;
+}
 /*  Shake animation */
 .shake {
   animation: shake 0.1s;
@@ -133,6 +170,10 @@ h2 {
   .card {
     height: 100svh;
     width: 50vw;
+  }
+  .fighter-img {
+    opacity: 0.2;
+    height: 100svh;
   }
   h2 {
     font-size: clamp(2.3rem, 4vw, 4em);
