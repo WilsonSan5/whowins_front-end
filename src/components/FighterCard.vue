@@ -1,5 +1,6 @@
 <script setup>
 import PercentageCountUp from './PercentageCountUp.vue'
+import store from '../store'
 
 const props = defineProps({
   name: {
@@ -27,6 +28,7 @@ const props = defineProps({
     require: true
   }
 })
+const defaultURL = store.state.defaultURL
 </script>
 
 <template>
@@ -39,15 +41,17 @@ const props = defineProps({
     ]"
   >
     <img
-      v-if="image"
+      v-if="props.image"
       :class="[isFirstCard ? 'lowOpacity' : 'highOpacity']"
       class="fighter-img"
-      :src="image"
+      :src="defaultURL + image"
     />
-    <h2 v-if="props.name">
-      {{ name }}
-    </h2>
-    <PercentageCountUp v-if="props.showPercentage" :percentageNumber="percentage" />
+    <div class="data-wrapper">
+      <h2 v-if="props.name">
+        {{ name }}
+      </h2>
+      <PercentageCountUp v-if="showPercentage" :percentageNumber="percentage" class="percentage" />
+    </div>
   </div>
 </template>
 
@@ -58,15 +62,16 @@ h2 {
   font-size: clamp(2.3rem, 8vw, 4em);
   font-family: var(--font-main);
   text-align: center;
-  z-index: 1;
-
-  position: absolute;
   transition: 0.3s ease-out;
   text-shadow:
     5px 5px 0 var(--color-background),
     -3px 3px 0 var(--color-background),
     -3px -3px 0 var(--color-background),
     3px -3px 0 var(--color-background);
+}
+.percentage {
+  position: relative;
+  z-index: 1;
 }
 
 .mainColor {
@@ -85,6 +90,11 @@ h2 {
   cursor: pointer;
 
   overflow: hidden;
+}
+.data-wrapper {
+  position: absolute;
+  z-index: 1;
+  transform: translateY(20px);
 }
 .fighter-img {
   opacity: 0.2;

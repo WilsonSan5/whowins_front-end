@@ -40,8 +40,6 @@ onMounted(() => {
   color: rgb(255, 255, 255);
   font-weight: 500;
   font-size: 5em;
-  position: relative;
-  top: -10px;
   transition: 0.3s ease-out;
 }
 </style>
