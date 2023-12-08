@@ -12,7 +12,7 @@ const initialized = computed(() => {
 const isInversed = computed(() => {
   return store.state.isInversed
 })
-
+const defaultURL = store.state.defaultURL
 const showPercentage = ref(false)
 var timeOut
 const screenWidth = ref(window.innerWidth)
@@ -30,6 +30,10 @@ const currentKey = computed(() => {
 const currentFight = computed(() => {
   // Current fight
   return allFights.value[currentKey.value]
+})
+// ------- Next fight -------------
+const preloadFight = computed(() => {
+  return initialized.value ? allFights.value[currentKey.value + 1] : null
 })
 // ------ Fighter Cards Data -------
 const fighter1_percentage = ref()
@@ -75,7 +79,7 @@ async function voting(vote) {
   showPercentage.value = true
   // Add 1 vote Back-End
   try {
-    axios.patch('api/votes/' + vote.id, { numberOfVotes: vote.numberOfVotes + 1 }).then((res) => {
+    axios.patch('/api/votes/' + vote.id, { numberOfVotes: vote.numberOfVotes + 1 }).then((res) => {
       console.log(res.data)
     })
   } catch (e) {
@@ -91,7 +95,7 @@ async function nextFight() {
   showPercentage.value = false // Removing Percentage
   store.state.isInversed = Math.random() < 0.5 // Sometimes it reverses the name for better dynamics
 
-  if (currentKey.value >= allFights.value.length - 1) {
+  if (currentKey.value >= allFights.value.length - 2) {
     store.state.allFights = store.state.nextFights // The current Fights switching to the new Fights
     store.state.currentKey = 0
     store.state.nextFights = await getFightsData() // Fetching the next Fights
@@ -105,8 +109,9 @@ async function getFightsData() {
   try {
     const response = await axios({
       method: 'GET',
-      url: 'api/fights/randomFight'
+      url: '/api/fights/randomFight'
     })
+    console.log(response.data)
     return response.data
   } catch (error) {
     console.log(error)
@@ -128,6 +133,18 @@ if (!store.state.isInitialized) {
 }
 </script>
 <template>
+  <!-- Preload image -->
+  <img
+    style="display: none"
+    v-if="initialized"
+    :src="defaultURL + preloadFight.votes[0].Fighter.image"
+  />
+  <img
+    style="display: none"
+    v-if="initialized"
+    :src="defaultURL + preloadFight.votes[1].Fighter.image"
+  />
+  <!-- Preload image -->
   <div class="wrapper">
     <Transition :name="screenWidth < 1024 ? 'fromTop' : 'fromLeft'">
       <FighterCard
@@ -171,6 +188,7 @@ if (!store.state.isInitialized) {
 .wrapper {
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 .secondCard {
   order: 1;
