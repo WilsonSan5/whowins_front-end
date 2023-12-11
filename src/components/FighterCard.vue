@@ -97,10 +97,9 @@ h2 {
   transform: translateY(20px);
 }
 .fighter-img {
-  opacity: 0.2;
+  mix-blend-mode: screen;
   width: calc(100% + 2em);
   height: 100%;
-  transition: 0.3s ease-out;
   object-fit: cover;
 }
 .card:hover h2 {
@@ -110,10 +109,10 @@ h2 {
   transform: scale(105%);
 }
 .lowOpacity {
-  opacity: 0.2;
+  opacity: 0.3;
 }
 .highOpacity {
-  opacity: 0.4;
+  opacity: 0.5;
 }
 /*  Shake animation */
 .shake {
@@ -172,7 +171,6 @@ h2 {
     width: 50vw;
   }
   .fighter-img {
-    opacity: 0.2;
     height: 100svh;
     max-width: 50vw;
     background-size: contain;
