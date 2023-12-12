@@ -101,6 +101,7 @@ h2 {
   width: calc(100% + 2em);
   height: 100%;
   object-fit: cover;
+  transition: 0.3s ease-out;
 }
 .card:hover h2 {
   transform: translateY(-15px);
@@ -165,15 +166,21 @@ h2 {
     transform: translate(-1px, -2px);
   }
 }
+@media (min-width: 600px) {
+  .fighter-img {
+    object-position: 0px -100px;
+  }
+}
 @media (min-width: 1024px) {
   .card {
     height: 100svh;
     width: 50vw;
   }
   .fighter-img {
+    object-position: center;
     height: 100svh;
     max-width: 50vw;
-    background-size: contain;
+    object-fit: cover;
   }
   h2 {
     font-size: clamp(2.3rem, 4vw, 4em);
