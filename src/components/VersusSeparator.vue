@@ -7,19 +7,23 @@ defineProps({
 })
 </script>
 <template>
-  <div id="line" :class="{ shake: shake }">
+  <div id="wrapper" :class="{ shake: shake }">
+    <div id="line"></div>
     <p id="VS">VS</p>
   </div>
 </template>
 
 <style scoped>
+#wrapper {
+  z-index: 2;
+}
 #line {
   position: fixed;
   top: 50%;
   background-color: white;
   height: 6px;
   width: 100vw;
-  z-index: 1;
+  z-index: 2;
 }
 
 #VS {
@@ -28,7 +32,7 @@ defineProps({
   top: calc(50% - 33px);
   left: 50%;
   transform: translateX(-50%);
-  z-index: 1;
+  z-index: 2;
 
   /* Font */
   font-family: var(--font-logo);
@@ -59,6 +63,7 @@ p:after {
     left: calc(50% - 8px);
   }
   #VS {
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -30%);

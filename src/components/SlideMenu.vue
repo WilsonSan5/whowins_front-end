@@ -43,7 +43,7 @@ function togglemenu() {
   position: fixed;
   top: 12px;
   right: 10px;
-  z-index: 2;
+  z-index: 4;
   width: 50px;
   height: 50px;
   cursor: pointer;
@@ -84,7 +84,7 @@ function togglemenu() {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1;
+  z-index: 3;
 
   /* Flex */
   display: flex;
