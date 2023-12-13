@@ -4,6 +4,7 @@ import SlideMenu from '../components/SlideMenu.vue'
 import { ref, computed } from 'vue'
 import axios from 'axios'
 import store from '../store'
+import VersusSeparator from '../components/VersusSeparator.vue'
 
 // ---- Variables ---- //
 const initialized = computed(() => {
@@ -159,6 +160,7 @@ if (!store.state.isInitialized) {
         :class="{ secondCard: isInversed }"
       />
     </Transition>
+    <VersusSeparator />
     <Transition :name="screenWidth <= 1024 ? 'fromBottom' : 'fromRight'">
       <FighterCard
         v-if="initialized"
@@ -172,7 +174,7 @@ if (!store.state.isInitialized) {
       />
     </Transition>
   </div>
-  <SlideMenu v-if="initialized" />
+  <SlideMenu v-if="initialized" :shake="shake" />
   <Transition name="fromBottom">
     <img
       v-if="initialized"
