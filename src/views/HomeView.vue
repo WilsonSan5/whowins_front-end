@@ -17,7 +17,7 @@ const defaultURL = store.state.defaultURL
 const showPercentage = ref(false)
 var timeOut
 const screenWidth = ref(window.innerWidth)
-var shake = false // Because I want to shake only if data get initialized
+var shake = ref(false) // Because I want to shake only if data get initialized
 
 //  ---- Fights array ------
 const allFights = computed(() => {
@@ -122,6 +122,7 @@ async function initialize() {
   try {
     store.state.allFights = await getFightsData()
     store.state.isInitialized = true
+    shake.value = true
     store.state.nextFights = await getFightsData()
   } catch (e) {
     console.log(e)
@@ -130,7 +131,6 @@ async function initialize() {
 // ---- Logic ---- //
 if (!store.state.isInitialized) {
   initialize()
-  shake = true
 }
 </script>
 <template>
@@ -160,7 +160,7 @@ if (!store.state.isInitialized) {
         :class="{ secondCard: isInversed }"
       />
     </Transition>
-    <VersusSeparator />
+    <VersusSeparator :shake="shake" />
     <Transition :name="screenWidth <= 1024 ? 'fromBottom' : 'fromRight'">
       <FighterCard
         v-if="initialized"

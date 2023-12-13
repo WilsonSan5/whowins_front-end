@@ -7,7 +7,7 @@ defineProps({
 })
 </script>
 <template>
-  <div id="line" class="shake">
+  <div id="line" :class="{ shake: shake }">
     <p id="VS">VS</p>
   </div>
 </template>
@@ -71,7 +71,7 @@ p:after {
 }
 .shake {
   animation: shake 0.1s;
-  animation-delay: 0.9s;
+  animation-delay: 0.55s;
 }
 
 @keyframes shake {
