@@ -166,9 +166,9 @@ h2 {
     transform: translate(-1px, -2px);
   }
 }
-@media (min-width: 600px) {
+@media (max-device-aspect-ratio: 3/5) {
   .fighter-img {
-    object-fit: contain;
+    object-fit: cover;
   }
 }
 @media (min-device-aspect-ratio: 1.3/1) {
