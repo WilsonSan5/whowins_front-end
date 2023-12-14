@@ -134,6 +134,9 @@ if (!store.state.isInitialized) {
 }
 </script>
 <template>
+  <h1 style="display: none">
+    WhoWins - Who is the strongest character ? Vote now for the winner of the craziest fights !
+  </h1>
   <!-- Preload image -->
   <img
     style="display: none"
