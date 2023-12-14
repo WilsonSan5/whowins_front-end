@@ -100,7 +100,7 @@ h2 {
   mix-blend-mode: screen;
   width: calc(100% + 2em);
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   transition: 0.3s ease-out;
 }
 .card:hover h2 {
@@ -166,9 +166,9 @@ h2 {
     transform: translate(-1px, -2px);
   }
 }
-@media (min-width: 830px) {
+@media (min-width: 600px) {
   .fighter-img {
-    object-position: 0px -5vw;
+    object-fit: contain;
   }
 }
 @media (min-width: 1024px) {
