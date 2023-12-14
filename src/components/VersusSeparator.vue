@@ -15,11 +15,16 @@ defineProps({
 
 <style scoped>
 #wrapper {
+  position: fixed;
+  top: 50%;
+  left: 50%;
   z-index: 2;
 }
 #line {
-  position: fixed;
+  position: absolute;
   top: 50%;
+  left: -50vw;
+  transform-origin: center;
   background-color: white;
   height: 6px;
   width: 100vw;
@@ -28,7 +33,7 @@ defineProps({
 
 #VS {
   /* Position */
-  position: fixed;
+  position: absolute;
   top: calc(50% - 33px);
   left: 50%;
   transform: translateX(-50%);
@@ -57,20 +62,18 @@ p:after {
 }
 @media (min-width: 1024px) {
   #line {
-    top: 0;
+    top: -50svh;
     width: 8px;
-    height: 100svh;
+    height: 101svh;
     left: calc(50% - 8px);
   }
   #VS {
-    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -30%);
   }
   p:after {
     left: 50%;
-    top: 0;
     transform: translateX(-50%);
   }
 }
