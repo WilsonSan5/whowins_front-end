@@ -171,7 +171,7 @@ h2 {
     object-fit: contain;
   }
 }
-@media (min-width: 1024px) {
+@media (min-device-aspect-ratio: 1.3/1) {
   .card {
     height: 100svh;
     width: 50vw;

@@ -247,7 +247,7 @@ if (!store.state.isInitialized) {
   }
 }
 /*  Style for desktop */
-@media (min-width: 1024px) {
+@media (min-device-aspect-ratio: 1.3/1) {
   .wrapper {
     display: flex;
     flex-direction: row;

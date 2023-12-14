@@ -60,7 +60,7 @@ p:after {
   transform: translateX(-50%);
   z-index: -1;
 }
-@media (min-width: 1024px) {
+@media (min-device-aspect-ratio: 1.3/1) {
   #line {
     top: -50svh;
     width: 8px;
