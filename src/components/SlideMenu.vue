@@ -29,7 +29,7 @@ function togglemenu() {
     <div v-if="isMenuActive" class="slide-menu">
       <h1 class="whowins-logo" @click="togglemenu()">WhoWins</h1>
       <div class="links-wrapper">
-        <!-- <router-link to="about" @click="togglemenu()"> Strongest characters </router-link> -->
+        <router-link to="ranking" @click="togglemenu()"> Ranking </router-link>
         <router-link to="submitFighter" @click="togglemenu()"> Submit a fighter </router-link>
         <router-link to="about" @click="togglemenu()"> About </router-link>
         <router-link to="contact" @click="togglemenu()"> Contact </router-link>

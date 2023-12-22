@@ -26,6 +26,11 @@ const router = createRouter({
       path: '/submitFighter',
       name: 'submitFighter',
       component: () => import('../views/SubmitFighter.vue')
+    },
+    {
+      path: '/ranking',
+      name: 'ranking',
+      component: () => import('../views/RankingView.vue')
     }
   ]
 })
