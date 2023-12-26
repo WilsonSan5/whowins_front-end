@@ -50,25 +50,25 @@ const ranking_by_strength = computed(() => {
     </div>
     <!-- FIRST PLACE -->
     <div class="podium">
+      <div class="medal">1</div>
       <img :src="defaultURL + ranking_by_strength[0].image" />
       <h2>{{ ranking_by_strength[0].name }}</h2>
       <p>winrate <br />{{ ranking_by_strength[0].percentage }} %</p>
-      <div class="medal">1</div>
     </div>
     <div class="flex second-row">
       <!-- SECOND PLACE -->
       <div class="podium second-place">
+        <div class="medal">2</div>
         <img :src="defaultURL + ranking_by_strength[1].image" />
         <h2>{{ ranking_by_strength[1].name }}</h2>
-        <p>winrate <br />{{ ranking_by_strength[0].percentage }} %</p>
-        <div class="medal">2</div>
+        <p>winrate <br />{{ ranking_by_strength[1].percentage }} %</p>
       </div>
       <!-- THIRD PLACE -->
       <div class="podium third-place">
+        <div class="medal">3</div>
         <img :src="defaultURL + ranking_by_strength[2].image" />
         <h2>{{ ranking_by_strength[2].name }}</h2>
-        <p>winrate <br />{{ ranking_by_strength[0].percentage }} %</p>
-        <div class="medal">3</div>
+        <p>winrate <br />{{ ranking_by_strength[2].percentage }} %</p>
       </div>
     </div>
     <ol start="4">
@@ -128,7 +128,8 @@ h1 {
 }
 ol {
   width: 90%;
-  margin: auto;
+  margin: 2em auto;
+  padding-bottom: 2em;
 }
 li {
   padding: 5px 0px;
@@ -175,8 +176,9 @@ p {
   height: 50px;
   /* Position */
   position: relative;
-  bottom: 130px;
+  top: 170px;
   left: 60px;
+  z-index: 2;
   /* Font */
   text-align: center;
   font-family: var(--font-logo);
@@ -190,6 +192,9 @@ p {
 /* Second and third place */
 .second-row {
   margin-top: -70px;
+}
+.second-row .medal {
+  top: 130px;
 }
 .second-row .podium img {
   width: 80%;

@@ -7,7 +7,7 @@
   --color-text-faded: rgb(130, 130, 130);
 
   --font-main: 'Komika_Axis';
-  --font-secondary: 'Fredoka', sans-serif;
+  --font-secondary: 'Inter', sans-serif;
   --font-logo: 'Badaboom';
 
   --section-gap: 160px;
@@ -68,4 +68,4 @@ body {
 }
 
 /* Secondary font */
-@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Inter:wght@400;600;700&display=swap');
