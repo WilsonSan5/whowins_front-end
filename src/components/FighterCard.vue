@@ -45,6 +45,8 @@ const defaultURL = store.state.defaultURL
       :class="[isFirstCard ? 'lowOpacity' : 'highOpacity']"
       class="fighter-img"
       :src="defaultURL + image"
+      draggable="false"
+      :alt="'picture of ' + props.name"
     />
     <div class="data-wrapper">
       <h2 v-if="props.name">

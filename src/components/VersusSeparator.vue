@@ -69,8 +69,8 @@ p:after {
   }
   #VS {
     top: 50%;
-    left: 50%;
-    transform: translate(-50%, -30%);
+    left: 45%;
+    transform: translate(-60%, -30%);
   }
   p:after {
     left: 50%;

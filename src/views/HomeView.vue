@@ -182,6 +182,7 @@ if (!store.state.isInitialized) {
     <img
       v-if="initialized"
       id="cycle-arrows"
+      alt="circle-arrows"
       class="icon bottom-left"
       src="../assets/icon/icon_refresh.png"
       @click="nextFight()"

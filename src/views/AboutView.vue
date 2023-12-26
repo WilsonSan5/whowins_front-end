@@ -33,7 +33,7 @@ function scrollHandler() {
       <a href="https://wilsonsan.fr" id="link-wrapper" target="_blank">
         <div id="indication">
           <p id="indication-text">My Portfolio</p>
-          <img src="../assets/curved-arrow.png" id="curved-arrow" />
+          <img src="../assets/curved-arrow.png" id="curved-arrow" alt="curved arrow" />
         </div>
         <img src="../assets/photo_portfolio.png" alt="picture of my face" id="portfolio-img" />
       </a>
