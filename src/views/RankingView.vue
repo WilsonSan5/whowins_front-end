@@ -5,12 +5,14 @@ import store from '../store'
 const defaultURL = store.state.defaultURL
 const ranking = ref()
 const strength_filter = ref()
+const category_code = ref()
 async function getRanking() {
   try {
     const response = await axios({
       method: 'GET',
       url: '/api/ranking'
     })
+    console.log(response)
     ranking.value = response.data
   } catch (error) {
     console.log(error)
@@ -18,30 +20,43 @@ async function getRanking() {
 }
 getRanking()
 
-strength_filter.value = 5
-const ranking_by_strength = computed(() => {
-  return ranking.value.filter((f) => f.strength === strength_filter.value)
+// strength_filter.value = 5
+category_code.value = 'all'
+// const ranking_by_strength = computed(() => {
+//   return ranking.value.filter((fighter) => fighter.strength === strength_filter.value)
+// })
+const ranking_by_category = computed(() => {
+  return category_code.value == 'all'
+    ? ranking.value
+    : ranking.value.filter((fighter) => fighter.category === category_code.value)
 })
 </script>
 <template>
   <div class="wrapper">
     <h1>Leaderboard</h1>
-    <p>
+    <!-- <p>
       All fighters are categorized by strength from 3 to 5 stars. As they can only fight characters
       with the same strength, leaderboard is separated.
-    </p>
+    </p> -->
     <div class="tabSelector">
-      <div class="tab" :class="{ active: strength_filter == 5 }" @click="strength_filter = 5">
-        <p>5</p>
-        <img src="../assets/icon/star.svg" alt="star to indicate strength" />
+      <div class="tab" :class="{ active: category_code == 'all' }" @click="category_code = 'all'">
+        <p>All</p>
       </div>
-      <div class="tab" :class="{ active: strength_filter == 4 }" @click="strength_filter = 4">
-        <p>4</p>
-        <img src="../assets/icon/star.svg" alt="star to indicate strength" />
+      <div class="tab" :class="{ active: category_code == 'COM' }" @click="category_code = 'COM'">
+        <p v-if="category_code == 'COM'">Comics</p>
+        <img v-if="category_code !== 'COM'" src="../assets/icon/icon-comics-2.png" />
       </div>
-      <div class="tab" :class="{ active: strength_filter == 3 }" @click="strength_filter = 3">
-        <p>3</p>
-        <img src="../assets/icon/star.svg" alt="star to indicate strength" />
+      <div class="tab" :class="{ active: category_code == 'MAN' }" @click="category_code = 'MAN'">
+        <p v-if="category_code == 'MAN'">Manga</p>
+        <img v-if="category_code !== 'MAN'" src="../assets/icon/icon-manga-3.png" />
+      </div>
+      <div class="tab" :class="{ active: category_code == 'MOV' }" @click="category_code = 'MOV'">
+        <p v-if="category_code == 'MOV'">Cinema</p>
+        <img v-if="category_code !== 'MOV'" src="../assets/icon/icon-movie.png" />
+      </div>
+      <div class="tab" :class="{ active: category_code == 'GAM' }" @click="category_code = 'GAM'">
+        <p v-if="category_code == 'GAM'">Video Games</p>
+        <img v-if="category_code !== 'GAM'" src="../assets/icon/icon-games-2.png" />
       </div>
       <!-- <div class="tab" :class="{ active: strength_filter == 2 }" @click="strength_filter = 2">
       <p>2</p>
@@ -51,28 +66,31 @@ const ranking_by_strength = computed(() => {
     <!-- FIRST PLACE -->
     <div class="podium">
       <div class="medal">1</div>
-      <img :src="defaultURL + ranking_by_strength[0].image" />
-      <h2>{{ ranking_by_strength[0].name }}</h2>
-      <p>winrate <br />{{ ranking_by_strength[0].percentage }} %</p>
+      <img :src="defaultURL + ranking_by_category[0].image" />
+      <h2>{{ ranking_by_category[0].name }}</h2>
+      <hr />
+      <p>winrate <br />{{ ranking_by_category[0].percentage }} %</p>
     </div>
     <div class="flex second-row">
       <!-- SECOND PLACE -->
       <div class="podium second-place">
         <div class="medal">2</div>
-        <img :src="defaultURL + ranking_by_strength[1].image" />
-        <h2>{{ ranking_by_strength[1].name }}</h2>
-        <p>winrate <br />{{ ranking_by_strength[1].percentage }} %</p>
+        <img :src="defaultURL + ranking_by_category[1].image" />
+        <h2>{{ ranking_by_category[1].name }}</h2>
+        <hr />
+        <p>winrate <br />{{ ranking_by_category[1].percentage }} %</p>
       </div>
       <!-- THIRD PLACE -->
       <div class="podium third-place">
         <div class="medal">3</div>
-        <img :src="defaultURL + ranking_by_strength[2].image" />
-        <h2>{{ ranking_by_strength[2].name }}</h2>
-        <p>winrate <br />{{ ranking_by_strength[2].percentage }} %</p>
+        <img :src="defaultURL + ranking_by_category[2].image" />
+        <h2>{{ ranking_by_category[2].name }}</h2>
+        <hr />
+        <p>winrate <br />{{ ranking_by_category[2].percentage }} %</p>
       </div>
     </div>
     <ol start="4">
-      <li v-for="fighter in ranking_by_strength.slice(3)" :key="fighter.name">
+      <li v-for="fighter in ranking_by_category.slice(3)" :key="fighter.name">
         <div class="flex">
           <div>{{ fighter.name }}</div>
           <div>{{ fighter.percentage }} %</div>
@@ -95,7 +113,8 @@ h1 {
 .tabSelector {
   margin: 1em auto;
   padding: 5px 5px;
-  width: 90%;
+  width: 100%;
+  max-width: 430px;
   height: 45px;
   display: flex;
   justify-content: space-between;
@@ -110,21 +129,25 @@ h1 {
   align-items: center;
   gap: 5px;
   border-radius: 35px;
-  padding: 0 1em;
+  padding: 0 15px;
   cursor: pointer;
   /* Flex basis  */
-  flex-basis: 33%;
 }
 .tab img {
   margin-top: -2px;
-  height: 20px;
+  height: 25px;
 }
 .tab p {
-  font-size: 20px;
+  font-size: 15px;
+  line-height: 15px;
 }
 .active {
   color: black;
   background-color: #dcdcdc;
+  flex: 0 0 20%;
+}
+.active p {
+  font-weight: bold;
 }
 ol {
   width: 90%;
@@ -150,7 +173,6 @@ li {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
 }
 .podium img {
   position: relative;
@@ -160,6 +182,9 @@ li {
   aspect-ratio: 1/1;
   width: 100%;
   object-fit: cover;
+
+  /* shadow box */
+  box-shadow: rgba(255, 255, 0, 0.243) 0px 0px 100px;
 }
 .podium h2 {
   font-size: 20px;
@@ -167,6 +192,15 @@ li {
 .podium > h2,
 p {
   text-align: center;
+}
+.podium p {
+  color: rgb(209, 209, 209);
+}
+.podium hr {
+  margin-top: 10px;
+  margin-bottom: 5px;
+  border-color: rgb(0, 0, 0);
+  width: 50%;
 }
 .medal {
   /* shape */
@@ -191,29 +225,33 @@ p {
 
 /* Second and third place */
 .second-row {
-  margin-top: -70px;
+  margin-top: -20px;
 }
 .second-row .medal {
   top: 130px;
 }
-.second-row .podium img {
-  width: 80%;
+.second-place img {
+  /* shadow box */
+  box-shadow: rgba(0, 191, 255, 0.243) 0px 0px 100px;
+}
+.third-place img {
+  /* shadow box */
+  box-shadow: rgba(255, 128, 0, 0.243) 0px 0px 100px;
 }
 .second-place .medal {
-  width: 40px;
-  height: 40px;
-  font-size: 25px;
   background: rgb(63, 124, 158);
   background: linear-gradient(0deg, rgba(63, 124, 158, 1) 28%, rgba(69, 173, 232, 1) 73%);
 }
 .third-place .medal {
+  background: rgb(138, 86, 48);
+  background: linear-gradient(0deg, rgb(178, 106, 54) 28%, rgba(226, 143, 44, 1) 73%);
+}
+.second-row .podium img {
+  width: 75%;
+}
+.second-row .medal {
   width: 40px;
   height: 40px;
   font-size: 25px;
-  background: rgb(138, 86, 48);
-  background: linear-gradient(0deg, rgba(138, 86, 48, 1) 28%, rgba(226, 143, 44, 1) 73%);
-}
-.second-row .podium img {
-  width: 80%;
 }
 </style>

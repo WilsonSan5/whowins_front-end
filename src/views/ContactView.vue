@@ -143,7 +143,5 @@ button:hover {
 
 /* Desktop */
 @media (min-width: 1024px) {
-  textarea {
-  }
 }
 </style>
