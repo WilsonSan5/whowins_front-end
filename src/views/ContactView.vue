@@ -140,8 +140,4 @@ button:hover {
 .bad {
   background-color: rgb(255, 153, 153);
 }
-
-/* Desktop */
-@media (min-width: 1024px) {
-}
 </style>

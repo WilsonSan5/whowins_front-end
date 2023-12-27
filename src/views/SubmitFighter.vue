@@ -9,7 +9,7 @@ const fighterName = ref()
 const fighter2Name = ref()
 const addOpponent = ref(false)
 const response = ref()
-const isLoading = ref(false)
+const isLoading = ref(true)
 
 function toggleField() {
   addOpponent.value = !addOpponent.value

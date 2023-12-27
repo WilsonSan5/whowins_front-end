@@ -2,7 +2,12 @@
 <template>
   <div class="loadingScreen">
     <h2>Sending</h2>
-    <div class="lds-ellipsis"></div>
+    <div class="lds-ellipsis">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
   </div>
 </template>
 

@@ -4,7 +4,7 @@ import { ref, computed } from 'vue'
 import store from '../store'
 const defaultURL = store.state.defaultURL
 const ranking = ref()
-const strength_filter = ref()
+// const strength_filter = ref()
 const category_code = ref()
 async function getRanking() {
   try {
@@ -44,19 +44,31 @@ const ranking_by_category = computed(() => {
       </div>
       <div class="tab" :class="{ active: category_code == 'COM' }" @click="category_code = 'COM'">
         <p v-if="category_code == 'COM'">Comics</p>
-        <img v-if="category_code !== 'COM'" src="../assets/icon/icon-comics-2.png" />
+        <img
+          v-if="category_code !== 'COM'"
+          src="../assets/icon/icon-comics-2.png"
+          alt="comics icon represented by a hero mask"
+        />
       </div>
       <div class="tab" :class="{ active: category_code == 'MAN' }" @click="category_code = 'MAN'">
         <p v-if="category_code == 'MAN'">Manga</p>
-        <img v-if="category_code !== 'MAN'" src="../assets/icon/icon-manga-3.png" />
+        <img
+          v-if="category_code !== 'MAN'"
+          src="../assets/icon/icon-manga-3.png"
+          alt="manga icon"
+        />
       </div>
       <div class="tab" :class="{ active: category_code == 'MOV' }" @click="category_code = 'MOV'">
         <p v-if="category_code == 'MOV'">Cinema</p>
-        <img v-if="category_code !== 'MOV'" src="../assets/icon/icon-movie.png" />
+        <img v-if="category_code !== 'MOV'" src="../assets/icon/icon-movie.png" alt="movie icon" />
       </div>
       <div class="tab" :class="{ active: category_code == 'GAM' }" @click="category_code = 'GAM'">
         <p v-if="category_code == 'GAM'">Video Games</p>
-        <img v-if="category_code !== 'GAM'" src="../assets/icon/icon-games-2.png" />
+        <img
+          v-if="category_code !== 'GAM'"
+          src="../assets/icon/icon-games-2.png"
+          alt="games icon reprensented with a controller"
+        />
       </div>
       <!-- <div class="tab" :class="{ active: strength_filter == 2 }" @click="strength_filter = 2">
       <p>2</p>
