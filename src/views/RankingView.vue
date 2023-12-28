@@ -17,7 +17,6 @@ const ranking_by_category = computed(() => {
 const windowTop = ref()
 const isScrollingDown = ref()
 const opacity = ref()
-const podiumWrapper = document.getElementById('podiun-wrapper')
 
 function onScroll() {
   if (window.top.scrollY > windowTop.value) {
