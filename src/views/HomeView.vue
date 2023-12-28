@@ -132,6 +132,7 @@ async function initialize() {
 if (!store.state.isInitialized) {
   initialize()
 }
+store.commit('getRanking')
 </script>
 <template>
   <h1 style="display: none">
@@ -177,7 +178,7 @@ if (!store.state.isInitialized) {
       />
     </Transition>
   </div>
-  <SlideMenu v-if="initialized" :shake="shake" />
+  <SlideMenu :shake="shake" />
   <Transition name="fromBottom">
     <img
       v-if="initialized"

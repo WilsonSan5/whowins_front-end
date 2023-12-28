@@ -1,4 +1,5 @@
 import { createStore } from 'vuex'
+import axios from 'axios'
 export default createStore({
     state() {
         return {
@@ -16,8 +17,23 @@ export default createStore({
             isInversed: false,
             // Menu
             isMenuActive: false,
+
+            //Ranking
+            ranking: null
         };
     },
     mutations: {
+        async getRanking() {
+            try {
+                const response = await axios({
+                    method: 'GET',
+                    url: '/api/ranking'
+                })
+                console.log(response)
+                this.state.ranking = response.data
+            } catch (error) {
+                console.log(error)
+            }
+        }
     }
 });

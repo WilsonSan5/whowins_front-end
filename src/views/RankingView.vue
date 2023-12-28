@@ -1,44 +1,59 @@
 <script setup>
-import axios from 'axios'
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import store from '../store'
-const defaultURL = store.state.defaultURL
-const ranking = ref()
-// const strength_filter = ref()
-const category_code = ref()
-async function getRanking() {
-  try {
-    const response = await axios({
-      method: 'GET',
-      url: '/api/ranking'
-    })
-    console.log(response)
-    ranking.value = response.data
-  } catch (error) {
-    console.log(error)
-  }
-}
-getRanking()
 
-// strength_filter.value = 5
+// --------------- Variables
+const defaultURL = store.state.defaultURL
+const ranking = computed(() => {
+  return store.state.ranking !== null ? store.state.ranking : null
+})
+const category_code = ref()
 category_code.value = 'all'
-// const ranking_by_strength = computed(() => {
-//   return ranking.value.filter((fighter) => fighter.strength === strength_filter.value)
-// })
 const ranking_by_category = computed(() => {
   return category_code.value == 'all'
     ? ranking.value
     : ranking.value.filter((fighter) => fighter.category === category_code.value)
 })
+const windowTop = ref()
+const isScrollingDown = ref()
+const opacity = ref()
+const podiumWrapper = document.getElementById('podiun-wrapper')
+
+function onScroll() {
+  if (window.top.scrollY > windowTop.value) {
+    isScrollingDown.value = true
+  } else {
+    isScrollingDown.value = false
+  }
+  windowTop.value = window.top.scrollY
+  opacity.value = Math.max(1 - windowTop.value / 600, 0)
+  console.log(windowTop.value, opacity.value)
+}
+onMounted(() => {
+  console.log(`the component is now mounted.`)
+  window.addEventListener('scroll', onScroll)
+})
+// ---------------
+
+if (!store.state.ranking) {
+  store.commit('getRanking')
+}
 </script>
 <template>
-  <div class="wrapper">
+  <div v-if="store.state.ranking" class="wrapper" @scroll="onScroll()">
+    <router-link to="/" @click="store.state.isMenuActive = true">
+      <img
+        src="../assets/icon/icon_arrow_back.svg"
+        alt="cross icon"
+        class="slide-menu-icon"
+        :class="[windowTop > 52 ? 'goDown' : '', isScrollingDown ? 'inactive' : '']"
+    /></router-link>
     <h1>Leaderboard</h1>
     <!-- <p>
       All fighters are categorized by strength from 3 to 5 stars. As they can only fight characters
       with the same strength, leaderboard is separated.
     </p> -->
-    <div class="tabSelector">
+    <div class="tabSelector stickyTop" :class="{ inactive: isScrollingDown }">
       <div class="tab" :class="{ active: category_code == 'all' }" @click="category_code = 'all'">
         <p>All</p>
       </div>
@@ -59,7 +74,10 @@ const ranking_by_category = computed(() => {
         />
       </div>
       <div class="tab" :class="{ active: category_code == 'MOV' }" @click="category_code = 'MOV'">
-        <p v-if="category_code == 'MOV'">Cinema</p>
+        <p v-if="category_code == 'MOV'">
+          Movie <br />
+          TV
+        </p>
         <img v-if="category_code !== 'MOV'" src="../assets/icon/icon-movie.png" alt="movie icon" />
       </div>
       <div class="tab" :class="{ active: category_code == 'GAM' }" @click="category_code = 'GAM'">
@@ -76,39 +94,40 @@ const ranking_by_category = computed(() => {
     </div> -->
     </div>
     <!-- FIRST PLACE -->
-    <div class="podium">
-      <div class="medal">1</div>
-      <img :src="defaultURL + ranking_by_category[0].image" />
-      <h2>{{ ranking_by_category[0].name }}</h2>
-      <hr />
-      <p>winrate <br />{{ ranking_by_category[0].percentage }} %</p>
-    </div>
-    <div class="flex second-row">
-      <!-- SECOND PLACE -->
-      <div class="podium second-place">
-        <div class="medal">2</div>
-        <img :src="defaultURL + ranking_by_category[1].image" />
-        <h2>{{ ranking_by_category[1].name }}</h2>
+    <div class="podium-wrapper" id="podium-wrapper" :style="{ opacity: opacity }">
+      <div class="podium">
+        <div class="medal">1</div>
+        <img :src="defaultURL + ranking_by_category[0].image" />
+        <h2>{{ ranking_by_category[0].name }}</h2>
         <hr />
-        <p>winrate <br />{{ ranking_by_category[1].percentage }} %</p>
+        <p>winrate <br />{{ ranking_by_category[0].percentage }} %</p>
       </div>
-      <!-- THIRD PLACE -->
-      <div class="podium third-place">
-        <div class="medal">3</div>
-        <img :src="defaultURL + ranking_by_category[2].image" />
-        <h2>{{ ranking_by_category[2].name }}</h2>
-        <hr />
-        <p>winrate <br />{{ ranking_by_category[2].percentage }} %</p>
-      </div>
-    </div>
-    <ol start="4">
-      <li v-for="fighter in ranking_by_category.slice(3)" :key="fighter.name">
-        <div class="flex">
-          <div>{{ fighter.name }}</div>
-          <div>{{ fighter.percentage }} %</div>
+      <div class="flex second-row">
+        <!-- SECOND PLACE -->
+        <div class="podium second-place">
+          <div class="medal">2</div>
+          <img :src="defaultURL + ranking_by_category[1].image" />
+          <h2>{{ ranking_by_category[1].name }}</h2>
+          <hr />
+          <p>winrate <br />{{ ranking_by_category[1].percentage }} %</p>
         </div>
+        <!-- THIRD PLACE -->
+        <div class="podium third-place">
+          <div class="medal">3</div>
+          <img :src="defaultURL + ranking_by_category[2].image" />
+          <h2>{{ ranking_by_category[2].name }}</h2>
+          <hr />
+          <p>winrate <br />{{ ranking_by_category[2].percentage }} %</p>
+        </div>
+      </div>
+    </div>
+    <ul start="4">
+      <li v-for="(fighter, key) in ranking_by_category.slice(3)" :key="fighter.name">
+        <div>{{ key + 4 }}</div>
+        <div>{{ fighter.name }}</div>
+        <div>{{ fighter.percentage }} %</div>
       </li>
-    </ol>
+    </ul>
   </div>
 </template>
 <style scoped>
@@ -122,17 +141,22 @@ h1 {
   text-align: center;
   margin-bottom: 1em;
 }
+/*  Tab selector */
 .tabSelector {
   margin: 1em auto;
   padding: 5px 5px;
   width: 100%;
   max-width: 430px;
   height: 45px;
+  border-radius: 35px;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   background-color: #373737;
-  border-radius: 35px;
+
+  transition: 0.2s ease-in-out;
 }
 .tab {
   height: 100%;
@@ -161,23 +185,18 @@ h1 {
 .active p {
   font-weight: bold;
 }
-ol {
-  width: 90%;
-  margin: 2em auto;
-  padding-bottom: 2em;
-}
-li {
-  padding: 5px 0px;
-  font-size: 1.5em;
-  font-family: var(--font-main);
-}
-.flex {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+
+.stickyTop {
+  position: sticky;
+  top: 5px;
 }
 
 /* Podium  */
+
+.podium-wrapper {
+  position: sticky;
+  top: 10px;
+}
 .podium {
   margin: auto;
   width: 170px;
@@ -199,6 +218,7 @@ li {
   box-shadow: rgba(255, 255, 0, 0.243) 0px 0px 100px;
 }
 .podium h2 {
+  margin-top: 10px;
   font-size: 20px;
 }
 .podium > h2,
@@ -211,7 +231,7 @@ p {
 .podium hr {
   margin-top: 10px;
   margin-bottom: 5px;
-  border-color: rgb(0, 0, 0);
+  border-color: rgb(152, 152, 152);
   width: 50%;
 }
 .medal {
@@ -265,5 +285,45 @@ p {
   width: 40px;
   height: 40px;
   font-size: 25px;
+}
+
+/*  Leaderboard List */
+ul {
+  position: relative;
+  list-style: none;
+  width: 90%;
+  margin: 2em auto;
+  padding: 0;
+  padding-bottom: 2em;
+  z-index: 2;
+}
+li {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 25px;
+
+  padding: 0 10px;
+  margin: 12px 0;
+  background-color: #4d4d4d;
+  border-radius: 10px;
+  height: 45px;
+
+  font-size: 20px;
+}
+li div:nth-child(3) {
+  margin-left: auto;
+}
+.flex {
+  display: flex;
+}
+
+.goDown {
+  top: 70px;
+}
+.inactive {
+  top: -100px;
 }
 </style>
