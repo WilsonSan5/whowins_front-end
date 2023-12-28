@@ -188,6 +188,7 @@ h1 {
 .stickyTop {
   position: sticky;
   top: 5px;
+  z-index: 2;
 }
 
 /* Podium  */
@@ -294,7 +295,7 @@ ul {
   margin: 2em auto;
   padding: 0;
   padding-bottom: 2em;
-  z-index: 2;
+  z-index: 1;
 }
 li {
   display: flex;
