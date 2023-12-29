@@ -16,6 +16,9 @@ const ranking_by_category = computed(() => {
 })
 const windowTop = ref()
 const isScrollingDown = ref()
+var scrollRange = 300
+var scrollTreshold = 200
+// opcity change
 const opacity = ref()
 
 function onScroll() {
@@ -25,7 +28,9 @@ function onScroll() {
     isScrollingDown.value = false
   }
   windowTop.value = window.top.scrollY
-  opacity.value = Math.max(1 - windowTop.value / 600, 0)
+  if (window.top.scrollY > scrollTreshold) {
+    opacity.value = Math.max(1 - (windowTop.value - scrollTreshold) / scrollRange, 0)
+  }
   console.log(windowTop.value, opacity.value)
 }
 onMounted(() => {
@@ -194,8 +199,9 @@ h1 {
 /* Podium  */
 
 .podium-wrapper {
+  margin-top: -30px;
   position: sticky;
-  top: 10px;
+  top: -45px;
 }
 .podium {
   margin: auto;
