@@ -55,25 +55,10 @@ function togglemenu() {
 #icon_x {
   margin-right: 3px;
 }
-#menu_burger:hover {
-  margin-top: -2px;
-  margin-right: 2px;
-  filter: drop-shadow(5px 5px 0px var(--color-background));
-}
-#icon_x:hover {
-  filter: invert(39%) sepia(87%) saturate(3855%) hue-rotate(340deg) brightness(100%) contrast(90%);
-}
+
 .slide-menu h1 {
   transition: 0.2s ease-in-out;
   cursor: pointer;
-}
-.slide-menu h1:hover,
-.slide-menu a:hover {
-  text-shadow:
-    -3px -3px 0 var(--color-secondary),
-    3px -3px 0 var(--color-main),
-    5px 5px 0 var(--color-main),
-    -3px 3px 0 var(--color-main);
 }
 .slide-menu {
   width: 100vw;
@@ -121,5 +106,25 @@ function togglemenu() {
 .v-enter-from,
 .v-leave-to {
   transform: translateY(-100%);
+}
+
+/* Hover effect on desktop */
+@media (hover: hover) {
+  #menu_burger:hover {
+    margin-top: -2px;
+    margin-right: 2px;
+    filter: drop-shadow(5px 5px 0px var(--color-background));
+  }
+  .slide-menu-icon:hover {
+    filter: invert(39%) sepia(87%) saturate(3855%) hue-rotate(340deg) brightness(100%) contrast(90%);
+  }
+  .slide-menu h1:hover,
+  .slide-menu a:hover {
+    text-shadow:
+      -3px -3px 0 var(--color-secondary),
+      3px -3px 0 var(--color-main),
+      5px 5px 0 var(--color-main),
+      -3px 3px 0 var(--color-main);
+  }
 }
 </style>

@@ -2,7 +2,7 @@
 import { ref, computed, onMounted } from 'vue'
 import store from '../store'
 
-// --------------- Variables
+// --------------- Variables ------------------------------
 const defaultURL = store.state.defaultURL
 const ranking = computed(() => {
   return store.state.ranking !== null ? store.state.ranking : null
@@ -46,12 +46,8 @@ if (!store.state.ranking) {
 <template>
   <div v-if="store.state.ranking" class="wrapper" @scroll="onScroll()">
     <router-link to="/" @click="store.state.isMenuActive = true">
-      <img
-        src="../assets/icon/icon_arrow_back.svg"
-        alt="cross icon"
-        class="slide-menu-icon"
-        :class="[windowTop > 52 ? 'goDown' : '', isScrollingDown ? 'inactive' : '']"
-    /></router-link>
+      <img src="../assets/icon/icon_arrow_back.svg" alt="cross icon" class="slide-menu-icon"
+        :class="[windowTop > 52 ? 'goDown' : '', isScrollingDown ? 'inactive' : '']" /></router-link>
     <h1>Leaderboard</h1>
     <!-- <p>
       All fighters are categorized by strength from 3 to 5 stars. As they can only fight characters
@@ -63,19 +59,12 @@ if (!store.state.ranking) {
       </div>
       <div class="tab" :class="{ active: category_code == 'COM' }" @click="category_code = 'COM'">
         <p v-if="category_code == 'COM'">Comics</p>
-        <img
-          v-if="category_code !== 'COM'"
-          src="../assets/icon/icon-comics-2.png"
-          alt="comics icon represented by a hero mask"
-        />
+        <img v-if="category_code !== 'COM'" src="../assets/icon/icon-comics-2.png"
+          alt="comics icon represented by a hero mask" />
       </div>
       <div class="tab" :class="{ active: category_code == 'MAN' }" @click="category_code = 'MAN'">
         <p v-if="category_code == 'MAN'">Manga</p>
-        <img
-          v-if="category_code !== 'MAN'"
-          src="../assets/icon/icon-manga-3.png"
-          alt="manga icon"
-        />
+        <img v-if="category_code !== 'MAN'" src="../assets/icon/icon-manga-3.png" alt="manga icon" />
       </div>
       <div class="tab" :class="{ active: category_code == 'MOV' }" @click="category_code = 'MOV'">
         <p v-if="category_code == 'MOV'">
@@ -86,11 +75,8 @@ if (!store.state.ranking) {
       </div>
       <div class="tab" :class="{ active: category_code == 'GAM' }" @click="category_code = 'GAM'">
         <p v-if="category_code == 'GAM'">Video Games</p>
-        <img
-          v-if="category_code !== 'GAM'"
-          src="../assets/icon/icon-games-2.png"
-          alt="games icon reprensented with a controller"
-        />
+        <img v-if="category_code !== 'GAM'" src="../assets/icon/icon-games-2.png"
+          alt="games icon reprensented with a controller" />
       </div>
       <!-- <div class="tab" :class="{ active: strength_filter == 2 }" @click="strength_filter = 2">
       <p>2</p>
@@ -140,11 +126,13 @@ if (!store.state.ranking) {
   margin: auto;
   max-width: 800px;
 }
+
 h1 {
   padding: 1rem 0;
   text-align: center;
   margin-bottom: 1em;
 }
+
 /*  Tab selector */
 .tabSelector {
   margin: 1em auto;
@@ -162,6 +150,7 @@ h1 {
 
   transition: 0.2s ease-in-out;
 }
+
 .tab {
   height: 100%;
   display: flex;
@@ -173,19 +162,23 @@ h1 {
   cursor: pointer;
   /* Flex basis  */
 }
+
 .tab img {
   margin-top: -2px;
   height: 25px;
 }
+
 .tab p {
   font-size: 15px;
   line-height: 15px;
 }
+
 .active {
   color: black;
   background-color: #dcdcdc;
   flex: 0 0 20%;
 }
+
 .active p {
   font-weight: bold;
 }
@@ -203,6 +196,7 @@ h1 {
   position: sticky;
   top: -45px;
 }
+
 .podium {
   margin: auto;
   width: 170px;
@@ -211,6 +205,7 @@ h1 {
   justify-content: center;
   align-items: center;
 }
+
 .podium img {
   position: relative;
   mix-blend-mode: screen;
@@ -223,23 +218,28 @@ h1 {
   /* shadow box */
   box-shadow: rgba(255, 255, 0, 0.243) 0px 0px 100px;
 }
+
 .podium h2 {
   margin-top: 10px;
   font-size: 20px;
 }
-.podium > h2,
+
+.podium>h2,
 p {
   text-align: center;
 }
+
 .podium p {
   color: rgb(209, 209, 209);
 }
+
 .podium hr {
   margin-top: 10px;
   margin-bottom: 5px;
   border-color: rgb(152, 152, 152);
   width: 50%;
 }
+
 .medal {
   /* shape */
   border-radius: 50px;
@@ -265,28 +265,35 @@ p {
 .second-row {
   margin-top: -20px;
 }
+
 .second-row .medal {
   top: 130px;
 }
+
 .second-place img {
   /* shadow box */
   box-shadow: rgba(0, 191, 255, 0.243) 0px 0px 100px;
 }
+
 .third-place img {
   /* shadow box */
   box-shadow: rgba(255, 128, 0, 0.243) 0px 0px 100px;
 }
+
 .second-place .medal {
   background: rgb(63, 124, 158);
   background: linear-gradient(0deg, rgba(63, 124, 158, 1) 28%, rgba(69, 173, 232, 1) 73%);
 }
+
 .third-place .medal {
   background: rgb(138, 86, 48);
   background: linear-gradient(0deg, rgb(178, 106, 54) 28%, rgba(226, 143, 44, 1) 73%);
 }
+
 .second-row .podium img {
   width: 75%;
 }
+
 .second-row .medal {
   width: 40px;
   height: 40px;
@@ -303,6 +310,7 @@ ul {
   padding-bottom: 2em;
   z-index: 1;
 }
+
 li {
   display: flex;
   flex-direction: row;
@@ -319,9 +327,11 @@ li {
 
   font-size: 20px;
 }
+
 li div:nth-child(3) {
   margin-left: auto;
 }
+
 .flex {
   display: flex;
 }
@@ -329,7 +339,7 @@ li div:nth-child(3) {
 .goDown {
   top: 70px;
 }
+
 .inactive {
   top: -100px;
-}
-</style>
+}</style>
